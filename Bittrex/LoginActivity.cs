@@ -20,6 +20,8 @@ namespace Bittrex
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            //DeleteLocalDataTest();
+
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Login);
@@ -35,6 +37,7 @@ namespace Bittrex
                 //Starts the main activity
                 var intent = new Intent(this, typeof(MainActivity));
                 StartActivity(intent);
+                this.Finish();
             }
 
             //Initializing button from layout
@@ -138,6 +141,15 @@ namespace Bittrex
             return res.ToString();
         }
 
+
+        public void DeleteLocalDataTest()
+        {
+            var localKeys = Application.Context.GetSharedPreferences("Keys", FileCreationMode.Private);
+            var keyEdit = localKeys.Edit();
+            keyEdit.Remove("API");
+            keyEdit.Remove("Secret");
+            keyEdit.Commit();
+        }
 
     }
 }

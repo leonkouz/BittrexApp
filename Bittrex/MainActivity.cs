@@ -70,16 +70,24 @@ namespace Bittrex
             return view;
         }*/
 
+        List<MarketCurrency> currencies;
+        List<string> currenciesStringList;
+
         //On creation of activity create the ListView and populate with all currencies from bittrex
         public override void OnActivityCreated(Bundle savedInstanceState)
         {
             base.OnActivityCreated(savedInstanceState);
 
-            List<MarketCurrency> currencies = APIMethods.GetCurrencies();
-            List<string> currenciesStringList = new List<string>();
+            currencies = APIMethods.GetCurrencies();
+            currenciesStringList = new List<string>();
 
-            foreach(var currency in currencies)
+            foreach (var currency in currencies)
             {
+                //Ignore this coin because its fucked
+                if(currency.Currency == "FC2" || currency.Currency == "BTC")
+                {
+                    continue;
+                }
                 currenciesStringList.Add("BTC-" + currency.Currency);
             }
 
@@ -88,26 +96,23 @@ namespace Bittrex
 
         public override void OnListItemClick(ListView l, View v, int index, long id)
         {
-            // We can display everything in place with fragments.
-            // Have the list highlight this item and show the data.
-            ListView.SetItemChecked(index, true);
+            //Gets the text of the item selecxted
+            var selectedItem = l.GetItemAtPosition(index).ToString();
 
-            // Check what fragment is shown, replace if needed.
-            var details = FragmentManager.FindFragmentById<DetailsFragment>(Resource.Id.details);
-            if (details == null || details.ShownCurrency != index)
-            {
-                // Make new fragment to show this selection.
-                details = DetailsFragment.NewInstance(index);
+            //Creates a new fragment and parses the selected currency
+            var fragment = CurrencyFragment.NewInstance(selectedItem);
 
-                // Execute a transaction, replacing any existing
-                // fragment with this one inside the frame.
-                var ft = FragmentManager.BeginTransaction();
-                ft.Replace(Resource.Id.details, details);
-                ft.SetTransition(FragmentTransit.FragmentFade);
-                ft.Commit();
-            }
+           
+
+
+            // Execute a transaction, replacing any existing fragment with this one inside the frame.
+            var fragmentTransaction = FragmentManager.BeginTransaction();
+            fragmentTransaction.Replace(Resource.Id.fragmentContainer, fragment);
+            fragmentTransaction.AddToBackStack(null);
+            fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
+            fragmentTransaction.Commit();
+
         }
-
     }
 
     class OrdersFragment : Fragment

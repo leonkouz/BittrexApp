@@ -52,10 +52,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BittrexAPI">
-      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Debug\BittrexAPI.dll</HintPath>
+      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\BittrexAPI.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Debug\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -63,7 +63,7 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DetailsActivity.cs" />
+    <Compile Include="CurrencyFragment.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="LoginData.cs" />
@@ -80,6 +80,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Login.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\CurrencyLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

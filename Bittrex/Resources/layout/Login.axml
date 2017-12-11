@@ -4,17 +4,12 @@
     android:layout_height="match_parent"
     android:background="#2579BF"
     android:orientation="vertical">
-    <LinearLayout 
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="10dp"
         android:orientation="vertical">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp" />
         <EditText
             android:id="@+id/APIKey"
             android:hint="Enter API Key"
