@@ -10,6 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
+using Android;
 
 namespace Bittrex
 {
@@ -59,19 +60,22 @@ namespace Bittrex
 
     class CurrenciesFragment : ListFragment
     {
-        /*public override View OnCreateView(LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState)
-        {
-            base.OnCreateView(inflater, container, savedInstanceState);
-
-            var view = inflater.Inflate(
-                Resource.Layout.Tab, container, false);
-
-            return view;
-        }*/
-
         List<MarketCurrency> currencies;
         List<string> currenciesStringList;
+
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            var view = inflater.Inflate(Resource.Layout.CustomListFragment, container, false);
+
+            return view; 
+        }
+
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        {
+
+            IMenuItem searchMenuItem = menu.FindItem(Resource.Id.searchView); // get my MenuItem with placeholder submenu
+            searchMenuItem.ExpandActionView();
+        }
 
         //On creation of activity create the ListView and populate with all currencies from bittrex
         public override void OnActivityCreated(Bundle savedInstanceState)
@@ -84,7 +88,7 @@ namespace Bittrex
             foreach (var currency in currencies)
             {
                 //Ignore this coin because its fucked
-                if(currency.Currency == "FC2" || currency.Currency == "BTC")
+                if(currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG")
                 {
                     continue;
                 }
@@ -101,9 +105,6 @@ namespace Bittrex
 
             //Creates a new fragment and parses the selected currency
             var fragment = CurrencyFragment.NewInstance(selectedItem);
-
-           
-
 
             // Execute a transaction, replacing any existing fragment with this one inside the frame.
             var fragmentTransaction = FragmentManager.BeginTransaction();
@@ -123,7 +124,7 @@ namespace Bittrex
             base.OnCreateView(inflater, container, savedInstanceState);
 
             var view = inflater.Inflate(
-                Resource.Layout.ListViewTab, container, false);
+                Resource.Layout.Main, container, false);
 
             return view;
         }
