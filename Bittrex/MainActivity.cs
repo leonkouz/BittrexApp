@@ -57,8 +57,18 @@ namespace Bittrex
 
         public override void OnBackPressed()
         {
-            this.MoveTaskToBack(true);
+            Fragment currentFragment = FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
+
+            // Execute a transaction, replacing any existing fragment with this one inside the frame.
+            var fragmentTransaction = FragmentManager.BeginTransaction();
+            fragmentTransaction.Remove(currentFragment);
+            fragmentTransaction.AddToBackStack(null);
+            fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
+            fragmentTransaction.Commit();
+
         }
+
+
     }
 
 
@@ -68,11 +78,11 @@ namespace Bittrex
         List<string> currenciesStringList;
         ListView _listView;
 
+       
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.CustomListFragment, container, false);
-
 
             var _adapter = new SearchableAdapter(Activity, currenciesStringList);
             //var _adapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, currenciesStringList);
@@ -87,7 +97,7 @@ namespace Bittrex
 
             var _searchView = searchView.JavaCast<SearchView>();
 
-            _searchView.QueryTextChange += (s, e) => _adapter.Filter.InvokeFilter(e.NewText);
+            _searchView.QueryTextChange += (s, e) => _adapter.Filter.InvokeFilter(new Java.Lang.String(e.NewText));
 
             return view; 
         }
@@ -122,11 +132,13 @@ namespace Bittrex
 
             // Execute a transaction, replacing any existing fragment with this one inside the frame.
             var fragmentTransaction = FragmentManager.BeginTransaction();
-            fragmentTransaction.Replace(Resource.Id.fragmentContainer, fragment);
+            fragmentTransaction.Add(Resource.Id.fragmentContainer, fragment);
             fragmentTransaction.AddToBackStack(null);
             fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
             fragmentTransaction.Commit();
         }
+
+        
     }
 
     class OrdersFragment : Fragment

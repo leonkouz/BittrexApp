@@ -17,7 +17,7 @@ namespace Bittrex
     public class SearchableAdapter : BaseAdapter<string>, IFilterable
     {
         public static List<string> _originalData;
-        public static List<string> _currencies;
+        public List<string> _currencies;
         private readonly Activity _context;
 
         public SearchableAdapter(Activity activity, List<string> currencies)
@@ -29,10 +29,7 @@ namespace Bittrex
             Filter = new CurrenciesFilter(this);
         }
 
-        public override int Count
-        {
-            get { return _currencies.Count(); }
-        }
+        public override int Count => _currencies.Count();
 
         public override long GetItemId(int position)
         {
@@ -47,28 +44,6 @@ namespace Bittrex
                 view = _context.LayoutInflater.Inflate(Resource.Layout.list_item, null);
             view.FindViewById<TextView>(Resource.Id.Text1).Text = item;
             return view;
-
-            /*ViewHolder holder = null;
-
-            if(convertView == null)
-            {
-                convertView = _context.LayoutInflater.Inflate(Resource.Layout.CustomListFragment, null);
-
-                holder = new ViewHolder();
-                holder.text = convertView.FindViewById<TextView>(Resource.Layout.list_item);
-            }
-            else
-            {
-                holder = convertView.GetTag(position).ToNetObject<ViewHolder>();
-            }
-
-            holder.text.Text = _currencies[position];
-
-            // var view = convertView ?? _context.LayoutInflater.Inflate(Resource.Layout.CustomListFragment, null);
-
-            //var currency = _currencies[position];
-
-            return convertView;*/
         }
 
         public Filter Filter { get; private set; }
@@ -124,7 +99,11 @@ namespace Bittrex
 
         protected override void PublishResults(ICharSequence constraint, FilterResults results)
         {
-            SearchableAdapter._currencies = results.Values.ToArray<string>().ToList();
+
+            _adapter._currencies = results.Values.ToNetObject<List<string>>();
+
+
+            
            _adapter.NotifyDataSetChanged();
 
             // Don't do this and see GREF counts rising
