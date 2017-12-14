@@ -44,11 +44,17 @@ namespace Bittrex
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040006
-			public const int APIKey = 2130968582;
+			// aapt resource value: 0x7f040009
+			public const int APIKey = 2130968585;
+			
+			// aapt resource value: 0x7f04000a
+			public const int SecretKey = 2130968586;
 			
 			// aapt resource value: 0x7f040007
-			public const int SecretKey = 2130968583;
+			public const int Text = 2130968583;
+			
+			// aapt resource value: 0x7f040008
+			public const int Text1 = 2130968584;
 			
 			// aapt resource value: 0x7f040002
 			public const int buyPrice = 2130968578;
@@ -59,11 +65,14 @@ namespace Bittrex
 			// aapt resource value: 0x7f040000
 			public const int currencyFragmentContainer = 2130968576;
 			
-			// aapt resource value: 0x7f040009
-			public const int fragmentContainer = 2130968585;
+			// aapt resource value: 0x7f04000c
+			public const int fragmentContainer = 2130968588;
 			
-			// aapt resource value: 0x7f040008
-			public const int login = 2130968584;
+			// aapt resource value: 0x7f040006
+			public const int listView = 2130968582;
+			
+			// aapt resource value: 0x7f04000b
+			public const int login = 2130968587;
 			
 			// aapt resource value: 0x7f040005
 			public const int searchView = 2130968581;
@@ -94,10 +103,13 @@ namespace Bittrex
 			public const int CustomListFragment = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Login = 2130837506;
+			public const int list_item = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int Main = 2130837507;
+			public const int Login = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int Main = 2130837508;
 			
 			static Layout()
 			{

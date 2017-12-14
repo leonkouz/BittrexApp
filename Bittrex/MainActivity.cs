@@ -55,53 +55,67 @@ namespace Bittrex
             this.ActionBar.AddTab(tab);
         }
 
+        public override void OnBackPressed()
+        {
+            this.MoveTaskToBack(true);
+        }
     }
 
 
-    class CurrenciesFragment : ListFragment
+    class CurrenciesFragment : Fragment
     {
         List<MarketCurrency> currencies;
         List<string> currenciesStringList;
+        ListView _listView;
+
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var view = inflater.Inflate(Resource.Layout.CustomListFragment, container, false);
 
+
+            var _adapter = new SearchableAdapter(Activity, currenciesStringList);
+            //var _adapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, currenciesStringList);
+
+            _listView = (ListView)view.FindViewById<ListView>(Resource.Id.listView);
+            _listView.Adapter = _adapter;
+
+            _listView.ItemClick += _listView_ItemClick;
+
+
+            var searchView = (SearchView)view.FindViewById(Resource.Id.searchView);
+
+            var _searchView = searchView.JavaCast<SearchView>();
+
+            _searchView.QueryTextChange += (s, e) => _adapter.Filter.InvokeFilter(e.NewText);
+
             return view; 
         }
 
-        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+             
+        public override void OnCreate(Bundle savedInstanceState)
         {
-
-            IMenuItem searchMenuItem = menu.FindItem(Resource.Id.searchView); // get my MenuItem with placeholder submenu
-            searchMenuItem.ExpandActionView();
-        }
-
-        //On creation of activity create the ListView and populate with all currencies from bittrex
-        public override void OnActivityCreated(Bundle savedInstanceState)
-        {
-            base.OnActivityCreated(savedInstanceState);
+            base.OnCreate(savedInstanceState);
 
             currencies = APIMethods.GetCurrencies();
             currenciesStringList = new List<string>();
 
             foreach (var currency in currencies)
             {
-                //Ignore this coin because its fucked
-                if(currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG")
+                
+                if (currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG")
                 {
                     continue;
                 }
                 currenciesStringList.Add("BTC-" + currency.Currency);
             }
 
-            this.ListAdapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, currenciesStringList);
         }
 
-        public override void OnListItemClick(ListView l, View v, int index, long id)
+        private void _listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             //Gets the text of the item selecxted
-            var selectedItem = l.GetItemAtPosition(index).ToString();
+            var selectedItem = e.Parent.GetItemAtPosition(e.Position).ToString();
 
             //Creates a new fragment and parses the selected currency
             var fragment = CurrencyFragment.NewInstance(selectedItem);
@@ -112,7 +126,6 @@ namespace Bittrex
             fragmentTransaction.AddToBackStack(null);
             fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
             fragmentTransaction.Commit();
-
         }
     }
 
@@ -128,10 +141,6 @@ namespace Bittrex
 
             return view;
         }
-
-        
-
     }
-
 }
 

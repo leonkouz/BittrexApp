@@ -52,10 +52,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BittrexAPI">
-      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\BittrexAPI.dll</HintPath>
+      <HintPath>D:\Users\leon.kouzoukas\Documents\Visual Studio 2017\Projects\BittrexAPI\BittrexAPI\bin\Debug\BittrexAPI.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\Newtonsoft.Json.dll</HintPath>
+      <HintPath>D:\Users\leon.kouzoukas\Documents\Visual Studio 2017\Projects\BittrexAPI\BittrexAPI\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -70,6 +70,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="SearchableAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="android-layout-xml.xsd">
@@ -88,6 +89,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\CustomListFragment.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\list_item.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="schemas.android.com.apk.res.android.xsd">
