@@ -54,20 +54,7 @@ namespace Bittrex
 
             this.ActionBar.AddTab(tab);
         }
-
-        public override void OnBackPressed()
-        {
-            Fragment currentFragment = FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
-
-            // Execute a transaction, replacing any existing fragment with this one inside the frame.
-            var fragmentTransaction = FragmentManager.BeginTransaction();
-            fragmentTransaction.Remove(currentFragment);
-            fragmentTransaction.AddToBackStack(null);
-            fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
-            fragmentTransaction.Commit();
-
-        }
-
+        
 
     }
 
@@ -133,7 +120,7 @@ namespace Bittrex
             // Execute a transaction, replacing any existing fragment with this one inside the frame.
             var fragmentTransaction = FragmentManager.BeginTransaction();
             fragmentTransaction.Add(Resource.Id.fragmentContainer, fragment);
-            fragmentTransaction.AddToBackStack(null);
+            fragmentTransaction.AddToBackStack("main");
             fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
             fragmentTransaction.Commit();
         }
