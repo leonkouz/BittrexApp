@@ -68,6 +68,7 @@
     <Compile Include="LoginActivity.cs" />
     <Compile Include="LoginData.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="PreferencesAct.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="SearchableAdapter.cs" />
@@ -92,6 +93,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\list_item.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\preferences.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\preferenceheaders.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="schemas.android.com.apk.res.android.xsd">

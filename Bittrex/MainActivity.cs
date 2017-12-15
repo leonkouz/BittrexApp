@@ -48,11 +48,13 @@ namespace Bittrex
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
+            //Set the toolbar
             var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
             toolbar.SetTitleTextColor(Android.Graphics.Color.White);
             SetActionBar(toolbar);
             ActionBar.Title = "Bittrex";
 
+            //Initialise the adapter and search view
             _adapter = new SearchableAdapter(this, currenciesStringList);
 
             _listView = this.FindViewById<ListView>(Resource.Id.listView);
@@ -80,6 +82,13 @@ namespace Bittrex
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
+
+            if(item.ItemId == Resource.Id.menu_preferences)
+            {
+                StartActivity(new Android.Content.Intent(this, typeof(PreferencesAct)));
+                return base.OnOptionsItemSelected(item);
+            }
+
             Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
                 ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
