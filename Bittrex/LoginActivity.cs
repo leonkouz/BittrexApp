@@ -1,7 +1,6 @@
 ﻿using System;
 using BittrexAPI;
 using Newtonsoft.Json;
-using BittrexAPI;
 using static System.Security.Cryptography.Encryption;
 
 

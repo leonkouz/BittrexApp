@@ -11,7 +11,6 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-using System.Text;
 
 
 namespace Bittrex
@@ -27,7 +26,6 @@ namespace Bittrex
             // Create your fragment here
 
             string text = this.GetText(this.Id);
-
         }
 
 

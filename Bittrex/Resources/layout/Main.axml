@@ -2,10 +2,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1" />
+    android:layout_height="fill_parent"
+    android:background="#ffffff">
+  <include
+      android:id="@+id/toolbar"
+      layout="@layout/toolbar" />
+  <FrameLayout
+      android:id="@+id/fragmentContainer"
+      android:layout_width="match_parent"
+      android:layout_height="0dip"
+      android:layout_weight="1">
+    <LinearLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+      <SearchView
+          android:id="@+id/searchView"
+          android:layout_width="fill_parent"
+          android:layout_height="50dp"
+          android:queryHint="Search currencies.."
+          android:textColorHint="#4C4C4C" />
+      <ListView
+          android:id="@+id/listView"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"/>
+    </LinearLayout>
+  </FrameLayout>
 </LinearLayout>

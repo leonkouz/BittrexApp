@@ -44,44 +44,50 @@ namespace Bittrex
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040009
-			public const int APIKey = 2130968585;
+			// aapt resource value: 0x7f070007
+			public const int APIKey = 2131165191;
 			
-			// aapt resource value: 0x7f04000a
-			public const int SecretKey = 2130968586;
+			// aapt resource value: 0x7f070008
+			public const int SecretKey = 2131165192;
 			
-			// aapt resource value: 0x7f040007
-			public const int Text = 2130968583;
+			// aapt resource value: 0x7f070005
+			public const int Text = 2131165189;
 			
-			// aapt resource value: 0x7f040008
-			public const int Text1 = 2130968584;
+			// aapt resource value: 0x7f070006
+			public const int Text1 = 2131165190;
 			
-			// aapt resource value: 0x7f040002
-			public const int buyPrice = 2130968578;
+			// aapt resource value: 0x7f070002
+			public const int buyPrice = 2131165186;
 			
-			// aapt resource value: 0x7f040001
-			public const int buyText = 2130968577;
+			// aapt resource value: 0x7f070001
+			public const int buyText = 2131165185;
 			
-			// aapt resource value: 0x7f040000
-			public const int currencyFragmentContainer = 2130968576;
+			// aapt resource value: 0x7f070000
+			public const int currencyFragmentContainer = 2131165184;
 			
-			// aapt resource value: 0x7f04000c
-			public const int fragmentContainer = 2130968588;
+			// aapt resource value: 0x7f07000b
+			public const int fragmentContainer = 2131165195;
 			
-			// aapt resource value: 0x7f040006
-			public const int listView = 2130968582;
+			// aapt resource value: 0x7f07000d
+			public const int listView = 2131165197;
 			
-			// aapt resource value: 0x7f04000b
-			public const int login = 2130968587;
+			// aapt resource value: 0x7f070009
+			public const int login = 2131165193;
 			
-			// aapt resource value: 0x7f040005
-			public const int searchView = 2130968581;
+			// aapt resource value: 0x7f07000e
+			public const int menu_preferences = 2131165198;
 			
-			// aapt resource value: 0x7f040004
-			public const int sellPrice = 2130968580;
+			// aapt resource value: 0x7f07000c
+			public const int searchView = 2131165196;
 			
-			// aapt resource value: 0x7f040003
-			public const int sellText = 2130968579;
+			// aapt resource value: 0x7f070004
+			public const int sellPrice = 2131165188;
+			
+			// aapt resource value: 0x7f070003
+			public const int sellText = 2131165187;
+			
+			// aapt resource value: 0x7f07000a
+			public const int toolbar = 2131165194;
 			
 			static Id()
 			{
@@ -96,20 +102,23 @@ namespace Bittrex
 		public partial class Layout
 		{
 			
-			// aapt resource value: 0x7f020000
-			public const int CurrencyLayout = 2130837504;
+			// aapt resource value: 0x7f030000
+			public const int CurrencyLayout = 2130903040;
 			
-			// aapt resource value: 0x7f020001
-			public const int CustomListFragment = 2130837505;
+			// aapt resource value: 0x7f030001
+			public const int CustomListFragment = 2130903041;
 			
-			// aapt resource value: 0x7f020002
-			public const int list_item = 2130837506;
+			// aapt resource value: 0x7f030002
+			public const int list_item = 2130903042;
 			
-			// aapt resource value: 0x7f020003
-			public const int Login = 2130837507;
+			// aapt resource value: 0x7f030003
+			public const int Login = 2130903043;
 			
-			// aapt resource value: 0x7f020004
-			public const int Main = 2130837508;
+			// aapt resource value: 0x7f030004
+			public const int Main = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int toolbar = 2130903045;
 			
 			static Layout()
 			{
@@ -121,11 +130,43 @@ namespace Bittrex
 			}
 		}
 		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int top_menus = 2131099648;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
+			{
+			}
+		}
+		
+		public partial class Mipmap
+		{
+			
+			// aapt resource value: 0x7f020000
+			public const int ic_more_vert_black_24dp = 2130837504;
+			
+			static Mipmap()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Mipmap()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f030000
-			public const int app_name = 2130903040;
+			// aapt resource value: 0x7f040000
+			public const int app_name = 2130968576;
 			
 			static String()
 			{
@@ -133,6 +174,22 @@ namespace Bittrex
 			}
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f050000
+			public const int MyTheme = 2131034112;
+			
+			static Style()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Style()
 			{
 			}
 		}

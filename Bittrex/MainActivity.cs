@@ -11,6 +11,7 @@ using Android.Widget;
 using Android.OS;
 using System.Collections.Generic;
 using Android;
+using Android.Util;
 
 namespace Bittrex
 {
@@ -18,8 +19,27 @@ namespace Bittrex
     [Activity(Label = "Bittrex")]
     public class MainActivity : Activity
     {
+
+        List<MarketCurrency> currencies;
+        List<string> currenciesStringList;
+        ListView _listView;
+        SearchableAdapter _adapter;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
+
+            currencies = APIMethods.GetCurrencies();
+            currenciesStringList = new List<string>();
+
+            foreach (var currency in currencies)
+            {
+                if (currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG" || currency.Currency == "SFR" || currency.Currency == "NAUT")
+                {
+                    continue;
+                }
+                currenciesStringList.Add("BTC-" + currency.Currency);
+            }
+
             Constants.ApiKey = LoginData.APIKey;
             Constants.SecretKey = LoginData.SecretKey;
 
@@ -28,10 +48,41 @@ namespace Bittrex
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.Main);
 
-            this.ActionBar.NavigationMode = ActionBarNavigationMode.Tabs;
+            var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+            toolbar.SetTitleTextColor(Android.Graphics.Color.White);
+            SetActionBar(toolbar);
+            ActionBar.Title = "Bittrex";
 
-            AddTab("Currencies", new CurrenciesFragment());
-            AddTab("Orders", new OrdersFragment());
+            _adapter = new SearchableAdapter(this, currenciesStringList);
+
+            _listView = this.FindViewById<ListView>(Resource.Id.listView);
+            _listView.Adapter = _adapter;
+
+            _listView.ItemClick += _listView_ItemClick;
+
+            var searchView = (SearchView)FindViewById(Resource.Id.searchView);
+
+            var _searchView = searchView.JavaCast<SearchView>();
+
+            _searchView.SetIconifiedByDefault(false);
+            _searchView.SetBackgroundColor(Android.Graphics.Color.White);
+            _searchView.SetQueryHint("Search currencies");
+
+            _searchView.QueryTextChange += (s, e) => _adapter.Filter.InvokeFilter(new Java.Lang.String(e.NewText));
+        }
+
+
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+            return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
+                ToastLength.Short).Show();
+            return base.OnOptionsItemSelected(item);
         }
 
         void AddTab(string tabText, Fragment view)
@@ -53,54 +104,6 @@ namespace Bittrex
 
             this.ActionBar.AddTab(tab);
         }
-    }
-
-    class CurrenciesFragment : Fragment
-    {
-        List<MarketCurrency> currencies;
-        List<string> currenciesStringList;
-        ListView _listView;
-
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            var view = inflater.Inflate(Resource.Layout.CustomListFragment, container, false);
-
-            var _adapter = new SearchableAdapter(Activity, currenciesStringList);
-            //var _adapter = new ArrayAdapter<string>(Activity, Android.Resource.Layout.SimpleExpandableListItem1, currenciesStringList);
-
-            _listView = (ListView)view.FindViewById<ListView>(Resource.Id.listView);
-            _listView.Adapter = _adapter;
-
-            _listView.ItemClick += _listView_ItemClick;
-
-
-            var searchView = (SearchView)view.FindViewById(Resource.Id.searchView);
-
-            var _searchView = searchView.JavaCast<SearchView>();
-
-            _searchView.QueryTextChange += (s, e) => _adapter.Filter.InvokeFilter(new Java.Lang.String(e.NewText));
-
-            return view; 
-        }
-
-             
-        public override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
-
-            currencies = APIMethods.GetCurrencies();
-            currenciesStringList = new List<string>();
-
-            foreach (var currency in currencies)
-            {
-                if (currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG" || currency.Currency == "SFR" || currency.Currency == "NAUT")
-                {
-                    continue;
-                }
-                currenciesStringList.Add("BTC-" + currency.Currency);
-            }
-
-        }
 
         private void _listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
@@ -117,22 +120,7 @@ namespace Bittrex
             fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
             fragmentTransaction.Commit();
         }
-
-        
     }
-
-    class OrdersFragment : Fragment
-    {
-        public override View OnCreateView(LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState)
-        {
-            base.OnCreateView(inflater, container, savedInstanceState);
-
-            var view = inflater.Inflate(
-                Resource.Layout.Main, container, false);
-
-            return view;
-        }
-    }
+    
 }
 

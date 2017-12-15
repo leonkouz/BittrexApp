@@ -3,15 +3,5 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-  <SearchView
-      android:id="@+id/searchView"
-      android:layout_width="fill_parent"
-      android:layout_height="50dp"
-      android:queryHint="Search currencies.."
-      android:textColorHint="#191919" />
-  <ListView
-      android:id="@+id/listView"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_weight="1" />
+ 
 </LinearLayout>
