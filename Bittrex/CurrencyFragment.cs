@@ -50,7 +50,17 @@ namespace Bittrex
             TextView sellTextView = view.FindViewById<TextView>(Resource.Id.sellPrice);
 
             //Get API data for currency
-            Ticker tick = APIMethods.GetTicker(currencyString);
+            Ticker tick;
+            try
+            {
+                 tick = APIMethods.GetTicker(currencyString);
+            }
+            catch (Exception e)
+            {
+                Toast.MakeText(Activity, e.Message.ToString(), ToastLength.Short).Show();
+                return view;
+            }
+            
 
             //Sets the buy and sell prices
             buyTextView.Text = tick.Bid.ToString("0.#########");

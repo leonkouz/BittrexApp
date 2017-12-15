@@ -32,7 +32,6 @@ namespace Bittrex
 
             AddTab("Currencies", new CurrenciesFragment());
             AddTab("Orders", new OrdersFragment());
-            
         }
 
         void AddTab(string tabText, Fragment view)
@@ -54,18 +53,13 @@ namespace Bittrex
 
             this.ActionBar.AddTab(tab);
         }
-        
-
     }
-
 
     class CurrenciesFragment : Fragment
     {
         List<MarketCurrency> currencies;
         List<string> currenciesStringList;
         ListView _listView;
-
-       
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -99,8 +93,7 @@ namespace Bittrex
 
             foreach (var currency in currencies)
             {
-                
-                if (currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG")
+                if (currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG" || currency.Currency == "SFR" || currency.Currency == "NAUT")
                 {
                     continue;
                 }
