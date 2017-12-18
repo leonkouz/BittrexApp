@@ -74,8 +74,8 @@ namespace Bittrex
 			// aapt resource value: 0x7f070009
 			public const int login = 2131165193;
 			
-			// aapt resource value: 0x7f070014
-			public const int menu_preferences = 2131165204;
+			// aapt resource value: 0x7f070013
+			public const int menu_preferences = 2131165203;
 			
 			// aapt resource value: 0x7f07000c
 			public const int searchView = 2131165196;
@@ -94,9 +94,6 @@ namespace Bittrex
 			
 			// aapt resource value: 0x7f070012
 			public const int settings_inputText = 2131165202;
-			
-			// aapt resource value: 0x7f070013
-			public const int settings_okButton = 2131165203;
 			
 			// aapt resource value: 0x7f070010
 			public const int settings_secretKeyButton = 2131165200;
