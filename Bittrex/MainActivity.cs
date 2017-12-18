@@ -27,7 +27,7 @@ namespace Bittrex
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-
+            //Get the list of currencies
             currencies = APIMethods.GetCurrencies();
             currenciesStringList = new List<string>();
 
@@ -77,42 +77,20 @@ namespace Bittrex
 
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
+            //This is required to create the custom toolbar
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);
             return base.OnCreateOptionsMenu(menu);
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
-
             if(item.ItemId == Resource.Id.menu_preferences)
             {
                 StartActivity(new Android.Content.Intent(this, typeof(SettingsActivity)));
                 return base.OnOptionsItemSelected(item);
             }
 
-            Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
-                ToastLength.Short).Show();
             return base.OnOptionsItemSelected(item);
-        }
-
-        void AddTab(string tabText, Fragment view)
-        {
-            var tab = this.ActionBar.NewTab();
-            tab.SetText(tabText);
-
-            // must set event handler before adding tab
-            tab.TabSelected += delegate (object sender, ActionBar.TabEventArgs e)
-            {
-                var fragment = this.FragmentManager.FindFragmentById(Resource.Id.fragmentContainer);
-                if (fragment != null)
-                    e.FragmentTransaction.Remove(fragment);
-                e.FragmentTransaction.Add(Resource.Id.fragmentContainer, view);
-            };
-            tab.TabUnselected += delegate (object sender, ActionBar.TabEventArgs e) {
-                e.FragmentTransaction.Remove(view);
-            };
-
-            this.ActionBar.AddTab(tab);
         }
 
         private void _listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)

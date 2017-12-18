@@ -20,10 +20,8 @@ namespace Bittrex
     [Activity(Label = "SettingsActivity")]
     public class SettingsActivity : Activity
     {
-
         private TextView apiKeyText;
         private TextView secretKeyText;
-
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
