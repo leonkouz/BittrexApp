@@ -71,6 +71,7 @@ namespace Bittrex
             _searchView.SetQueryHint("Search currencies");
 
             _searchView.QueryTextChange += (s, e) => _adapter.Filter.InvokeFilter(new Java.Lang.String(e.NewText));
+
         }
 
 
@@ -85,7 +86,7 @@ namespace Bittrex
 
             if(item.ItemId == Resource.Id.menu_preferences)
             {
-                StartActivity(new Android.Content.Intent(this, typeof(PreferencesAct)));
+                StartActivity(new Android.Content.Intent(this, typeof(SettingsActivity)));
                 return base.OnOptionsItemSelected(item);
             }
 

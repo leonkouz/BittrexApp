@@ -74,8 +74,8 @@ namespace Bittrex
 			// aapt resource value: 0x7f070009
 			public const int login = 2131165193;
 			
-			// aapt resource value: 0x7f07000e
-			public const int menu_preferences = 2131165198;
+			// aapt resource value: 0x7f070014
+			public const int menu_preferences = 2131165204;
 			
 			// aapt resource value: 0x7f07000c
 			public const int searchView = 2131165196;
@@ -85,6 +85,24 @@ namespace Bittrex
 			
 			// aapt resource value: 0x7f070003
 			public const int sellText = 2131165187;
+			
+			// aapt resource value: 0x7f07000e
+			public const int settings_apiKeyButton = 2131165198;
+			
+			// aapt resource value: 0x7f07000f
+			public const int settings_apiKeyTextView = 2131165199;
+			
+			// aapt resource value: 0x7f070012
+			public const int settings_inputText = 2131165202;
+			
+			// aapt resource value: 0x7f070013
+			public const int settings_okButton = 2131165203;
+			
+			// aapt resource value: 0x7f070010
+			public const int settings_secretKeyButton = 2131165200;
+			
+			// aapt resource value: 0x7f070011
+			public const int settings_secretKeyTextView = 2131165201;
 			
 			// aapt resource value: 0x7f07000a
 			public const int toolbar = 2131165194;
@@ -118,10 +136,10 @@ namespace Bittrex
 			public const int Main = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int preferenceheaders = 2130903045;
+			public const int Settings = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int preferences = 2130903046;
+			public const int Settings_inputlayout = 2130903046;
 			
 			// aapt resource value: 0x7f030007
 			public const int toolbar = 2130903047;
