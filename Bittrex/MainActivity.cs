@@ -12,6 +12,7 @@ using Android.OS;
 using System.Collections.Generic;
 using Android;
 using Android.Util;
+using System.Linq;
 
 namespace Bittrex
 {
@@ -20,28 +21,24 @@ namespace Bittrex
     public class MainActivity : Activity
     {
 
-        List<MarketCurrency> currencies;
+        List<Market> currencies;
         List<string> currenciesStringList;
         ListView _listView;
         SearchableAdapter _adapter;
 
         public bool isOnCurrencyFragment = false;
 
-        IMenuItem refreshButton;
+        public static IMenuItem refreshButton;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //Get the list of currencies
-            currencies = APIMethods.GetCurrencies();
+            currencies = APIMethods.GetMarkets();
             currenciesStringList = new List<string>();
 
             foreach (var currency in currencies)
             {
-                if (currency.Currency == "FC2" || currency.Currency == "BTC" || currency.Currency == "SLG" || currency.Currency == "SFR" || currency.Currency == "NAUT")
-                {
-                    continue;
-                }
-                currenciesStringList.Add("BTC-" + currency.Currency);
+                currenciesStringList.Add(currency.MarketName);
             }
 
             Constants.ApiKey = LoginData.APIKey;
@@ -78,7 +75,6 @@ namespace Bittrex
 
         }
 
-
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             //This is required to create the custom toolbar
@@ -109,6 +105,12 @@ namespace Bittrex
                 StartActivity(new Android.Content.Intent(this, typeof(SettingsActivity)));
                 return base.OnOptionsItemSelected(item);
             }
+
+            if(item.ItemId == Resource.Id.menu_refresh)
+            {
+                CurrencyFragment.OnMenuItemClick(this);
+            }
+
 
             return base.OnOptionsItemSelected(item);
         }

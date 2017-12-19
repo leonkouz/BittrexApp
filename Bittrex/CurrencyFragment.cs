@@ -17,16 +17,21 @@ namespace Bittrex
 {
     public class CurrencyFragment : Fragment
     {
+
         public string currencyString { get { return Arguments.GetString("currency_string", ""); } }
+
+        public static string Currency;
+
+        public static TextView buyTextView;
+        public static TextView sellTextView;
+        public static TextView lastTextView;
+        public static Ticker tick;
+
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-
-            // Create your fragment here
-
-            string text = this.GetText(this.Id);
-
+            
         }
 
 
@@ -40,23 +45,30 @@ namespace Bittrex
             //Parses the currency to the fragment class
             var currencyFrag = new CurrencyFragment { Arguments = new Bundle() };
             currencyFrag.Arguments.PutString("currency_string", currency);
+            Currency = currency;
             return currencyFrag;
         }
 
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-
             // Use this to return your custom view for this Fragment
             var view = inflater.Inflate(Resource.Layout.CurrencyLayout, container, false);
 
+            var viewMain = inflater.Inflate(Resource.Layout.Main, null, false);
+
+            var toolbar = viewMain.FindViewById<Toolbar>(Resource.Id.toolbar);
+
+            ToolbarOnClickListener listener = new ToolbarOnClickListener(Activity, buyTextView, sellTextView, lastTextView, currencyString);
+
+            toolbar.SetOnMenuItemClickListener(listener);
+
             //Finds the text view
-            TextView buyTextView = view.FindViewById<TextView>(Resource.Id.buyPrice);
-            TextView sellTextView = view.FindViewById<TextView>(Resource.Id.sellPrice);
-            TextView lastTextView = view.FindViewById<TextView>(Resource.Id.lastPrice);
+            buyTextView = view.FindViewById<TextView>(Resource.Id.buyPrice);
+            sellTextView = view.FindViewById<TextView>(Resource.Id.sellPrice);
+            lastTextView = view.FindViewById<TextView>(Resource.Id.lastPrice);
 
             //Get API data for currency
-            Ticker tick;
             try
             {
                  tick = APIMethods.GetTicker(currencyString);
@@ -67,7 +79,6 @@ namespace Bittrex
                 return view;
             }
             
-
             //Sets the buy and sell prices
             buyTextView.Text = tick.Bid.ToString("0.#########");
             sellTextView.Text = tick.Ask.ToString("0.#########");
@@ -75,5 +86,24 @@ namespace Bittrex
 
             return view;
         }
+
+        public static void OnMenuItemClick(Activity activity)
+        {
+            try
+            {
+                tick = APIMethods.GetTicker(Currency);
+                //Sets the buy and sell prices
+                buyTextView.Text = tick.Bid.ToString("0.#########");
+                sellTextView.Text = tick.Ask.ToString("0.#########");
+                lastTextView.Text = tick.Last.ToString("0.#########");
+
+                Toast.MakeText(activity, "Refreshed", ToastLength.Short).Show();
+            }
+            catch (Exception e)
+            {
+                Toast.MakeText(activity, e.Message.ToString(), ToastLength.Short).Show();
+            }
+        }
+
     }
 }
