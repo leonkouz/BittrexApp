@@ -3,8 +3,8 @@
   <style name="MyTheme" parent="@android:style/Theme.Holo.Light.DarkActionBar">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowActionBar">false</item>
-    <item name="android:colorPrimary">#000000</item>
-    <item name="android:colorPrimaryDark">#000000</item>
+    <item name="android:colorPrimary">#323232</item>
+    <item name="android:colorPrimaryDark">#323232</item>
     <item name="android:textColorPrimary">#4C4C4C</item>
     <item name="android:colorAccent">#4C4C4C</item>
   </style>

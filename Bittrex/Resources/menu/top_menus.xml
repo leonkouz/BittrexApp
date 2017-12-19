@@ -4,4 +4,9 @@
        android:id="@+id/menu_preferences"
        android:showAsAction="never"
        android:title="Settings" />
+  <item
+       android:id="@+id/menu_refresh"
+       android:showAsAction="ifRoom"
+       android:title="Refresh"
+       android:icon="@mipmap/ic_refresh_black_24dp"/>
 </menu>

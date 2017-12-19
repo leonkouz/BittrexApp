@@ -25,6 +25,10 @@ namespace Bittrex
         ListView _listView;
         SearchableAdapter _adapter;
 
+        public bool isOnCurrencyFragment = false;
+
+        IMenuItem refreshButton;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //Get the list of currencies
@@ -79,7 +83,23 @@ namespace Bittrex
         {
             //This is required to create the custom toolbar
             MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+
+            refreshButton = menu.FindItem(Resource.Id.menu_refresh);
+            refreshButton.SetVisible(false);
+            refreshButton.SetEnabled(false);
+
             return base.OnCreateOptionsMenu(menu);
+        }
+
+        public override void OnBackPressed()
+        {
+            if (isOnCurrencyFragment == true)
+            {
+                refreshButton.SetVisible(false);
+                refreshButton.SetEnabled(false);
+                isOnCurrencyFragment = false;
+            }
+            base.OnBackPressed();
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)
@@ -95,6 +115,12 @@ namespace Bittrex
 
         private void _listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+
+            refreshButton.SetEnabled(true);
+            refreshButton.SetVisible(true);
+
+            isOnCurrencyFragment = true;
+
             //Gets the text of the item selecxted
             var selectedItem = e.Parent.GetItemAtPosition(e.Position).ToString();
 
