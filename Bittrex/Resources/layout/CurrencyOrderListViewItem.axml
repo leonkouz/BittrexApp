@@ -16,3 +16,5 @@
       android:layout_weight="1"
       android:text="right" />
 </LinearLayout>
+
+https://forums.xamarin.com/discussion/15231/multi-column-listview-bind-class-list
