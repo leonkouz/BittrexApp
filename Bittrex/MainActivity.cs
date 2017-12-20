@@ -4,6 +4,7 @@ using BittrexAPI.Structures;
 using Newtonsoft.Json;
 
 using Android.App;
+using Android.Views.InputMethods;
 using Android.Content;
 using Android.Runtime;
 using Android.Views;
@@ -24,6 +25,7 @@ namespace Bittrex
         List<Market> currencies;
         List<string> currenciesStringList;
         ListView _listView;
+        SearchView _searchView;
         SearchableAdapter _adapter;
 
         public bool isOnCurrencyFragment = false;
@@ -65,7 +67,7 @@ namespace Bittrex
 
             var searchView = (SearchView)FindViewById(Resource.Id.searchView);
 
-            var _searchView = searchView.JavaCast<SearchView>();
+            _searchView = searchView.JavaCast<SearchView>();
 
             _searchView.SetIconifiedByDefault(false);
             _searchView.SetBackgroundColor(Android.Graphics.Color.White);
@@ -94,6 +96,8 @@ namespace Bittrex
                 refreshButton.SetVisible(false);
                 refreshButton.SetEnabled(false);
                 isOnCurrencyFragment = false;
+                _listView.Enabled = true;
+                _searchView.Enabled = true;
             }
             base.OnBackPressed();
         }
@@ -120,8 +124,15 @@ namespace Bittrex
 
             refreshButton.SetEnabled(true);
             refreshButton.SetVisible(true);
+            _listView.Enabled = false;
+            _searchView.Enabled = false;
 
             isOnCurrencyFragment = true;
+
+            //Hides the keyboard when the fragment changes
+            InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+            imm.HideSoftInputFromWindow(_searchView.WindowToken, 0);
+
 
             //Gets the text of the item selecxted
             var selectedItem = e.Parent.GetItemAtPosition(e.Position).ToString();
@@ -131,8 +142,8 @@ namespace Bittrex
 
             // Execute a transaction, replacing any existing fragment with this one inside the frame.
             var fragmentTransaction = FragmentManager.BeginTransaction();
-            fragmentTransaction.Add(Resource.Id.fragmentContainer, fragment);
-            fragmentTransaction.AddToBackStack("main");
+            fragmentTransaction.Replace(Resource.Id.fragmentContainer, fragment);
+            fragmentTransaction.AddToBackStack(null);
             fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
             fragmentTransaction.Commit();
         }

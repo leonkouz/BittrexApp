@@ -92,10 +92,11 @@ namespace Bittrex
             try
             {
                 tick = APIMethods.GetTicker(Currency);
+
                 //Sets the buy and sell prices
-                buyTextView.Text = tick.Bid.ToString("0.#########");
-                sellTextView.Text = tick.Ask.ToString("0.#########");
-                lastTextView.Text = tick.Last.ToString("0.#########");
+                buyTextView.Text = tick.Bid.ToString("N8");
+                sellTextView.Text = tick.Ask.ToString("N8");
+                lastTextView.Text = tick.Last.ToString("N8");
 
                 Toast.MakeText(activity, "Refreshed", ToastLength.Short).Show();
             }
