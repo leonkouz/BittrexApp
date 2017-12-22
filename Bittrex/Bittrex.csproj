@@ -52,7 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BittrexAPI">
-      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\BittrexAPI.dll</HintPath>
+      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Debug\BittrexAPI.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\Newtonsoft.Json.dll</HintPath>

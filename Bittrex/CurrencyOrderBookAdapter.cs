@@ -18,11 +18,14 @@ namespace Bittrex
     {
         private readonly IList<Order> _orders;
         private readonly Context _context;
+        private readonly bool _isBuyOrders;
 
-        public CurrencyOrderBookAdapter(Context context, IList<Order> orders)
+
+        public CurrencyOrderBookAdapter(Context context, IList<Order> orders, bool isBuyOrders)
         {
             _orders = orders;
             _context = context;
+            _isBuyOrders = isBuyOrders; //Used to determine if it is the buy orders or the sell orders to set the colour of the text
         }
 
         public override Order this[int position]
@@ -53,6 +56,17 @@ namespace Bittrex
 
             view.FindViewById<TextView>(Resource.Id.quantity).Text = order.Quantity.ToString("0.#########"); ;
             view.FindViewById<TextView>(Resource.Id.rate).Text = order.Rate.ToString("0.#########"); ;
+
+            if (_isBuyOrders == true)
+            {
+                view.FindViewById<TextView>(Resource.Id.quantity).SetTextColor(Android.Graphics.Color.ForestGreen);
+                view.FindViewById<TextView>(Resource.Id.rate).SetTextColor(Android.Graphics.Color.ForestGreen);
+            }
+            else
+            {
+                view.FindViewById<TextView>(Resource.Id.quantity).SetTextColor(Android.Graphics.Color.Red);
+                view.FindViewById<TextView>(Resource.Id.rate).SetTextColor(Android.Graphics.Color.Red);
+            }
 
             return view;
 

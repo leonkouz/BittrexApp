@@ -69,13 +69,19 @@ namespace Bittrex
             sellTextView = view.FindViewById<TextView>(Resource.Id.sellPrice);
             lastTextView = view.FindViewById<TextView>(Resource.Id.lastPrice);
 
+            //Get the orders for the market
             OrderBook orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
 
+            //Finds the listview for buy orders
             var buyOrderListView = (ListView)view.FindViewById(Resource.Id.buyOrders_listView);
-            buyOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Buys.ToList());
+            buyOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Buys.ToList(), true);
+            //Set the buy orders to the last item 
+            buyOrderListView.SetSelection(buyOrderListView.Adapter.Count - 1);
 
+
+            //Finds the listview for sell orders
             var sellOrderListView = (ListView)view.FindViewById(Resource.Id.sellOrders_listView);
-            sellOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Sells.ToList());
+            sellOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Sells.ToList(), false);
 
             //Get API data for currency
             try

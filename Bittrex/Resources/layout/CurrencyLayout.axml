@@ -90,30 +90,28 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="5dp"
-                android:text="Buys " />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
                 android:paddingLeft="5dp"
                 android:text="Quantity:                                       Rate:" />
             <ListView
                 android:id="@+id/buyOrders_listView"
                 android:layout_width="fill_parent"
+                android:textColor="#32CD32"
                 android:layout_height="105dp"
                 android:paddingLeft="5dp" />
-            <TextView
+          <View
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="5dp"
-                android:text="Sells " />
+                android:layout_height="1dp"
+                android:background="#808080" />
             <ListView
                 android:id="@+id/sellOrders_listView"
                 android:layout_width="fill_parent"
-                android:layout_height="100dp"
+                android:textColor="#FF0000"
+                android:layout_height="105dp"
                 android:paddingLeft="5dp" />
+          <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#808080" />
         </LinearLayout>
     </FrameLayout>
 </LinearLayout>
