@@ -11,7 +11,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
-
+using System.Threading.Tasks;
 
 namespace Bittrex
 {
@@ -27,6 +27,14 @@ namespace Bittrex
         public static TextView lastTextView;
         public static Ticker tick;
 
+        OrderBook orderBook;
+
+        ListView buyOrderListView;
+        ListView sellOrderListView;
+        CurrencyOrderBookAdapter buyAdapter;
+        CurrencyOrderBookAdapter sellAdapter;
+
+        public static System.Timers.Timer timer;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -70,18 +78,24 @@ namespace Bittrex
             lastTextView = view.FindViewById<TextView>(Resource.Id.lastPrice);
 
             //Get the orders for the market
-            OrderBook orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
+            orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
 
             //Finds the listview for buy orders
-            var buyOrderListView = (ListView)view.FindViewById(Resource.Id.buyOrders_listView);
-            buyOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Buys.ToList(), true);
+            buyOrderListView = (ListView)view.FindViewById(Resource.Id.buyOrders_listView);
+
+            //Create the new adapter
+            buyAdapter = new CurrencyOrderBookAdapter(Activity, orderBook.Buys.ToList(), true);
+            buyOrderListView.Adapter = buyAdapter;
+
             //Set the buy orders to the last item 
             buyOrderListView.SetSelection(buyOrderListView.Adapter.Count - 1);
 
-
             //Finds the listview for sell orders
-            var sellOrderListView = (ListView)view.FindViewById(Resource.Id.sellOrders_listView);
-            sellOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Sells.ToList(), false);
+            sellOrderListView = (ListView)view.FindViewById(Resource.Id.sellOrders_listView);
+
+            //Create the new adapter
+            sellAdapter = new CurrencyOrderBookAdapter(Activity, orderBook.Sells.ToList(), false);
+            sellOrderListView.Adapter = sellAdapter;
 
             //Get API data for currency
             try
@@ -99,8 +113,26 @@ namespace Bittrex
             sellTextView.Text = tick.Ask.ToString("0.#########");
             lastTextView.Text = tick.Last.ToString("0.#########");
 
+            // invoke loop method but DO NOT await it
+            RefreshOrderBook();
+
             return view;
         }
+
+        private async Task RefreshOrderBook()
+        {
+            while (MainActivity.isOnCurrencyFragment == true)
+            {
+                //Get new orderbook
+                orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
+                sellAdapter.Update(orderBook.Sells.ToList(), Activity);
+                buyAdapter.Update(orderBook.Sells.ToList(), Activity);
+
+                //Wait for 1 second
+                await Task.Delay(1000);
+            }
+        }
+        
 
         public static void OnMenuItemClick(Activity activity)
         {
@@ -122,4 +154,6 @@ namespace Bittrex
         }
 
     }
+
+
 }

@@ -28,7 +28,7 @@ namespace Bittrex
         SearchView _searchView;
         SearchableAdapter _adapter;
 
-        public bool isOnCurrencyFragment = false;
+        public static bool isOnCurrencyFragment = false;
 
         public static IMenuItem refreshButton;
 

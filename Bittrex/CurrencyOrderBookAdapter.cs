@@ -16,7 +16,7 @@ namespace Bittrex
 {
     class CurrencyOrderBookAdapter : BaseAdapter<Order>
     {
-        private readonly IList<Order> _orders;
+        private IList<Order> _orders;
         private readonly Context _context;
         private readonly bool _isBuyOrders;
 
@@ -41,6 +41,12 @@ namespace Bittrex
         public override long GetItemId(int position)
         {
             return position;
+        }
+
+        public void Update(IList<Order> orders, Activity activity)
+        {
+            _orders = orders;
+            activity.RunOnUiThread(() => this.NotifyDataSetChanged());
         }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
