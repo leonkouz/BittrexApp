@@ -74,6 +74,9 @@ namespace Bittrex
             var buyOrderListView = (ListView)view.FindViewById(Resource.Id.buyOrders_listView);
             buyOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Buys.ToList());
 
+            var sellOrderListView = (ListView)view.FindViewById(Resource.Id.sellOrders_listView);
+            sellOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Sells.ToList());
+
             //Get API data for currency
             try
             {
