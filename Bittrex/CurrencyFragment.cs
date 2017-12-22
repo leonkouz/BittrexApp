@@ -123,10 +123,19 @@ namespace Bittrex
         {
             while (MainActivity.isOnCurrencyFragment == true)
             {
-                //Get new orderbook
-                orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
-                sellAdapter.Update(orderBook.Sells.ToList(), Activity);
-                buyAdapter.Update(orderBook.Sells.ToList(), Activity);
+                
+                try
+                {
+                    //Get new orderbook
+                    orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
+
+                    sellAdapter.Update(orderBook.Sells.ToList(), Activity);
+                    buyAdapter.Update(orderBook.Buys.ToList(), Activity);
+                }
+                catch
+                {
+                    Toast.MakeText(Activity, "Unable to update orders", ToastLength.Short).Show();
+                }
 
                 //Wait for 1 second
                 await Task.Delay(1000);
