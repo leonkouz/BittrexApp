@@ -56,9 +56,6 @@ namespace Bittrex
 			// aapt resource value: 0x7f07000b
 			public const int Text1 = 2131165195;
 			
-			// aapt resource value: 0x7f070008
-			public const int amount = 2131165192;
-			
 			// aapt resource value: 0x7f070007
 			public const int buyOrders_listView = 2131165191;
 			
@@ -92,8 +89,11 @@ namespace Bittrex
 			// aapt resource value: 0x7f070019
 			public const int menu_refresh = 2131165209;
 			
+			// aapt resource value: 0x7f070008
+			public const int quantity = 2131165192;
+			
 			// aapt resource value: 0x7f070009
-			public const int right = 2131165193;
+			public const int rate = 2131165193;
 			
 			// aapt resource value: 0x7f070011
 			public const int searchView = 2131165201;

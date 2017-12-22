@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CurrencyFragment.cs" />
+    <Compile Include="CurrencyOrderBookAdapter.cs" />
     <Compile Include="Encryption.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="LoginData.cs" />

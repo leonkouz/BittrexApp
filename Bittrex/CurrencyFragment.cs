@@ -59,6 +59,7 @@ namespace Bittrex
 
             var toolbar = viewMain.FindViewById<Toolbar>(Resource.Id.toolbar);
 
+            //Hooks into the refresh button listerner
             ToolbarOnClickListener listener = new ToolbarOnClickListener(Activity, buyTextView, sellTextView, lastTextView, currencyString);
 
             toolbar.SetOnMenuItemClickListener(listener);
@@ -67,6 +68,11 @@ namespace Bittrex
             buyTextView = view.FindViewById<TextView>(Resource.Id.buyPrice);
             sellTextView = view.FindViewById<TextView>(Resource.Id.sellPrice);
             lastTextView = view.FindViewById<TextView>(Resource.Id.lastPrice);
+
+            OrderBook orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
+
+            var buyOrderListView = (ListView)view.FindViewById(Resource.Id.buyOrders_listView);
+            buyOrderListView.Adapter = new CurrencyOrderBookAdapter(Activity, orderBook.Buys.ToList());
 
             //Get API data for currency
             try

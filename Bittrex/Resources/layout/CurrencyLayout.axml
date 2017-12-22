@@ -9,73 +9,94 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1">
-        <TableLayout
+        <LinearLayout
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="5dp">
+            android:orientation="vertical">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_column="1"
+                    android:layout_height="32.0dp"
+                    android:textColor="#000000"
+                    android:textSize="15dp"
+                    android:text="24h Data:" />
+                <TableRow>
+                    <TextView
+                        android:id="@+id/buyText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="13dp"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:text="Buy: " />
+                    <TextView
+                        android:id="@+id/buyPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="13dp"
+                        android:singleLine="true"
+                        android:textColor="#000000" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/lastText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textSize="13dp"
+                        android:singleLine="true"
+                        android:gravity="right"
+                        android:textColor="#000000"
+                        android:text="Last: " />
+                    <TextView
+                        android:id="@+id/lastPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:textSize="13dp"
+                        android:singleLine="true"
+                        android:textColor="#000000" />
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        android:id="@+id/sellText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:singleLine="false"
+                        android:textColor="#000000"
+                        android:text="Sell: " />
+                    <TextView
+                        android:id="@+id/sellPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:singleLine="false"
+                        android:textColor="#000000" />
+                </TableRow>
+            </TableLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#808080" />
+          <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingTop="5dp"
+                android:paddingLeft="5dp"
+                android:text="Order Book: " />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_column="1"
-                android:layout_height="32.0dp"
-                android:textColor="#000000"
-                android:textSize="15dp"
-                android:text="24h Data:" />
-            <TableRow>
-                <TextView
-                    android:id="@+id/buyText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="13dp"
-                    android:singleLine="true"
-                    android:textColor="#000000"
-                    android:text="Buy: " />
-                <TextView
-                    android:id="@+id/buyPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="13dp"
-                    android:singleLine="true"
-                    android:textColor="#000000" />
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:id="@+id/lastText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textSize="13dp"
-                    android:singleLine="true"
-                    android:gravity="right"
-                    android:textColor="#000000"
-                    android:text="Last: " />
-                <TextView
-                    android:id="@+id/lastPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="fill_parent"
-                    android:textSize="13dp"
-                    android:singleLine="true"
-                    android:textColor="#000000" />
-            </TableRow>
-            <TableRow>
-                <TextView
-                    android:id="@+id/sellText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:singleLine="false"
-                    android:textColor="#000000"
-                    android:text="Sell: " />
-                <TextView
-                    android:id="@+id/sellPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:singleLine="false"
-                    android:textColor="#000000" />
-            </TableRow>
-        </TableLayout>
-        <ListView
-            android:id="@+id/buyOrders_listView"
-            android:layout_width="fill_parent"
-            android:layout_height="70dp" />
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:paddingLeft="5dp"
+                android:text="Quantity:                                  Rate:" />
+            <ListView
+                android:id="@+id/buyOrders_listView"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:paddingLeft="5dp" />
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>
