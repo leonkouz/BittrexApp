@@ -113,7 +113,7 @@ namespace Bittrex
             sellTextView.Text = tick.Ask.ToString("0.#########");
             lastTextView.Text = tick.Last.ToString("0.#########");
 
-            // invoke loop method but DO NOT await it
+            //invoke loop method but DO NOT await it
             RefreshOrderBook();
 
             return view;
@@ -123,7 +123,6 @@ namespace Bittrex
         {
             while (MainActivity.isOnCurrencyFragment == true)
             {
-                
                 try
                 {
                     //Get new orderbook
