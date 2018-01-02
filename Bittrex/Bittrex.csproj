@@ -79,6 +79,7 @@
     <Compile Include="SearchableAdapter.cs" />
     <Compile Include="SettingsActivity.cs" />
     <Compile Include="ToolbarOnClickListener.cs" />
+    <Compile Include="YourOrdersListViewAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="android-layout-xml.xsd">

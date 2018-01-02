@@ -52,6 +52,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="#000000"
-    android:text="This will place a limit order for the amount specified."
-    />
+    android:paddingTop="5px"
+    android:text="This will place a limit order for the amount specified."/>
 </LinearLayout>
