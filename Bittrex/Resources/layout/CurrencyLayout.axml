@@ -9,243 +9,259 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_weight="1">
-      <HorizontalScrollView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
-      <ScrollView
-    android:layout_height="match_parent"
-    android:layout_width="match_parent">
-        <LinearLayout
+        <HorizontalScrollView
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:orientation="vertical">
-          <LinearLayout
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"
-              android:paddingTop="5dp"
-              android:paddingLeft="5dp"
-              android:orientation="horizontal">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textColor="#000000"
-                android:paddingBottom="5dp"
-                android:text="Trading Pair: " />
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textColor="#000000"
-                android:paddingBottom="5dp"
-                android:text="BTC/Something"
-                android:id="@+id/tradingPairText" />
-          </LinearLayout>
-          <LinearLayout
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"
-              android:paddingTop="5dp"
-              android:paddingBottom="5dp"
-              android:orientation="horizontal">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="0.0000000"
-                android:textColor="#000000"
-                android:id="@+id/btcBalance" />
-            <TextView
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:layout_width="wrap_content"
-                android:text="BTC Available"
-                android:textColor="#000000" />
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:paddingLeft="35dp"
-                android:text="0.0000000"
-                android:textColor="#000000"
-                android:id="@+id/selectedCurrencyBalance" />
-            <TextView
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:layout_width="wrap_content"
-                android:text="Available"
-                android:textColor="#000000"
-                android:id="@+id/selectedCurrencyBalanceAvailableText" />
-          </LinearLayout>
-          <View
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="#808080" />
-          <LinearLayout
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"
-              android:orientation="horizontal">
-            <Button
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:id="@+id/buyOrderbutton"
-                android:text="Buy" />
-            <Button
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:id="@+id/sellOrderbutton"
-                android:text="Sell" />
-          </LinearLayout>
-          <LinearLayout
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"
-              android:orientation="horizontal">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="Amount: "
-                android:textColor="#000000" />
-            <EditText
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:paddingLeft="5dp"
-                android:inputType="numberDecimal"
-                android:textSize="13dp"
-                android:text="0.0000000"
-                android:id="@+id/amountToPurchase"
-                android:textColor="#000000" />
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:paddingLeft="35dp"
-                android:text="Price: "
-                android:textColor="#000000" />
-            <EditText
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:paddingLeft="5dp"
-                android:inputType="numberDecimal"
-                android:textSize="13dp"
-                android:text="0.0000000"
-                android:id="@+id/priceToPurchase"
-                android:textColor="#000000" />
-          </LinearLayout>
-          <LinearLayout
-              android:layout_height="wrap_content"
-              android:layout_width="match_parent"
-              android:paddingLeft="5dp"
-              android:orientation="horizontal">
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textColor="#000000"
-                android:text="Total BTC: " />
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:textColor="#000000"
-                android:text="0.000000"
-                android:id="@+id/totalBtcPrice" />
-          </LinearLayout>
-          <View
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="#808080" />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="30dp"
-              android:paddingTop="5dp"
-              android:paddingLeft="5dp"
-              android:text="Order Book: " />
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="30dp"
-              android:paddingLeft="5dp"
-              android:text="Quantity:                                       Rate:" />
-          <ListView
-              android:id="@+id/buyOrders_listView"
-              android:layout_width="fill_parent"
-              android:textColor="#32CD32"
-              android:layout_height="105dp"
-              android:paddingLeft="5dp" />
-          <View
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="#808080" />
-          <ListView
-              android:id="@+id/sellOrders_listView"
-              android:layout_width="fill_parent"
-              android:textColor="#FF0000"
-              android:layout_height="105dp"
-              android:paddingLeft="5dp" />
-          <View
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="#808080" />
-          <TableLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="32.0dp"
-                android:textColor="#000000"
-                android:textSize="15dp"
-                android:text="24h Data:" />
-            <TableRow>
-              <TextView
-                  android:id="@+id/buyText"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:textSize="13dp"
-                  android:singleLine="true"
-                  android:textColor="#000000"
-                  android:text="Buy: " />
-              <TextView
-                  android:id="@+id/buyPrice"
-                  android:layout_width="match_parent"
-                  android:layout_height="fill_parent"
-                  android:textSize="13dp"
-                  android:singleLine="true"
-                  android:textColor="#000000" />
-            </TableRow>
-            <TableRow>
-              <TextView
-                  android:id="@+id/sellText"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="13dp"
-                  android:singleLine="false"
-                  android:textColor="#000000"
-                  android:text="Sell: " />
-              <TextView
-                  android:id="@+id/sellPrice"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:textSize="13dp"
-                  android:singleLine="false"
-                  android:textColor="#000000" />
-            </TableRow>
-            <TableRow>
-              <TextView
-                  android:id="@+id/lastText"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:textSize="13dp"
-                  android:singleLine="true"
-                  android:gravity="right"
-                  android:textColor="#000000"
-                  android:text="Last: " />
-              <TextView
-                  android:id="@+id/lastPrice"
-                  android:layout_width="match_parent"
-                  android:layout_height="fill_parent"
-                  android:textSize="13dp"
-                  android:singleLine="true"
-                  android:textColor="#000000" />
-            </TableRow>
-          </TableLayout>
-        </LinearLayout>
-      </ScrollView>
-      </HorizontalScrollView>
+            android:layout_width="match_parent">
+            <ScrollView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+                <LinearLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="5dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:textColor="#000000"
+                            android:paddingBottom="5dp"
+                            android:text="Trading Pair: " />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:textColor="#000000"
+                            android:paddingBottom="5dp"
+                            android:text="BTC/Something"
+                            android:id="@+id/tradingPairText" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:paddingTop="5dp"
+                        android:paddingBottom="5dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="0.0000000"
+                            android:textColor="#000000"
+                            android:id="@+id/btcBalance" />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:text="BTC Available"
+                            android:textColor="#000000" />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:paddingLeft="35dp"
+                            android:text="0.0000000"
+                            android:textColor="#000000"
+                            android:id="@+id/selectedCurrencyBalance" />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:layout_width="wrap_content"
+                            android:text="Available"
+                            android:textColor="#000000"
+                            android:id="@+id/selectedCurrencyBalanceAvailableText" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#808080" />
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal">
+                        <Button
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/buyOrderbutton"
+                            android:text="Buy" />
+                        <Button
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:id="@+id/sellOrderbutton"
+                            android:text="Sell" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:text="Amount: "
+                            android:textColor="#000000" />
+                        <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:inputType="numberDecimal"
+                            android:textSize="13dp"
+                            android:text="0.0000000"
+                            android:id="@+id/amountToPurchase"
+                            android:textColor="#000000" />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:paddingLeft="35dp"
+                            android:text="Price: "
+                            android:textColor="#000000" />
+                        <EditText
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:paddingLeft="5dp"
+                            android:inputType="numberDecimal"
+                            android:textSize="13dp"
+                            android:text="0.0000000"
+                            android:id="@+id/priceToPurchase"
+                            android:textColor="#000000" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:paddingLeft="5dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:textColor="#000000"
+                            android:text="Total BTC: " />
+                        <TextView
+                            android:layout_height="wrap_content"
+                            android:layout_width="wrap_content"
+                            android:textColor="#000000"
+                            android:text="0.000000"
+                            android:id="@+id/totalBtcPrice" />
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#808080" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:paddingTop="5dp"
+                        android:paddingLeft="5dp"
+                        android:text="Order Book: " />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:paddingLeft="5dp"
+                        android:text="Quantity:                                       Rate:" />
+                    <ListView
+                        android:id="@+id/buyOrders_listView"
+                        android:layout_width="fill_parent"
+                        android:textColor="#32CD32"
+                        android:layout_height="105dp"
+                        android:paddingLeft="5dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#808080" />
+                    <ListView
+                        android:id="@+id/sellOrders_listView"
+                        android:layout_width="fill_parent"
+                        android:textColor="#FF0000"
+                        android:layout_height="105dp"
+                        android:paddingLeft="5dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#808080" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:paddingLeft="5dp"
+                        android:text="Your orders:" />
+                    <ListView
+                        android:id="@+id/sellOrders_listView"
+                        android:layout_width="fill_parent"
+                        android:textColor="#FF0000"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#808080" />
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="32.0dp"
+                            android:textColor="#000000"
+                            android:textSize="15dp"
+                            android:text="24h Data:" />
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/buyText"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textSize="13dp"
+                                android:singleLine="true"
+                                android:textColor="#000000"
+                                android:text="Buy: " />
+                            <TextView
+                                android:id="@+id/buyPrice"
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:textSize="13dp"
+                                android:singleLine="true"
+                                android:textColor="#000000" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/sellText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:singleLine="false"
+                                android:textColor="#000000"
+                                android:text="Sell: " />
+                            <TextView
+                                android:id="@+id/sellPrice"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="13dp"
+                                android:singleLine="false"
+                                android:textColor="#000000" />
+                        </TableRow>
+                        <TableRow>
+                            <TextView
+                                android:id="@+id/lastText"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textSize="13dp"
+                                android:singleLine="true"
+                                android:gravity="right"
+                                android:textColor="#000000"
+                                android:text="Last: " />
+                            <TextView
+                                android:id="@+id/lastPrice"
+                                android:layout_width="match_parent"
+                                android:layout_height="fill_parent"
+                                android:textSize="13dp"
+                                android:singleLine="true"
+                                android:textColor="#000000" />
+                        </TableRow>
+                    </TableLayout>
+                </LinearLayout>
+            </ScrollView>
+        </HorizontalScrollView>
     </FrameLayout>
 </LinearLayout>

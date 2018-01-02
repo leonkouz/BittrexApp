@@ -114,6 +114,9 @@
     <AndroidResource Include="Resources\layout\OrderConfirmationLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\YourOrderListViewItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <None Include="schemas.android.com.apk.res.android.xsd">
       <SubType>Designer</SubType>
     </None>

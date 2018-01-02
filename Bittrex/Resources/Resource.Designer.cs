@@ -101,11 +101,11 @@ namespace Bittrex
 			// aapt resource value: 0x7f070018
 			public const int login = 2131165208;
 			
-			// aapt resource value: 0x7f070025
-			public const int menu_preferences = 2131165221;
+			// aapt resource value: 0x7f07002b
+			public const int menu_preferences = 2131165227;
 			
-			// aapt resource value: 0x7f070026
-			public const int menu_refresh = 2131165222;
+			// aapt resource value: 0x7f07002c
+			public const int menu_refresh = 2131165228;
 			
 			// aapt resource value: 0x7f070008
 			public const int priceToPurchase = 2131165192;
@@ -161,6 +161,24 @@ namespace Bittrex
 			// aapt resource value: 0x7f070001
 			public const int tradingPairText = 2131165185;
 			
+			// aapt resource value: 0x7f070027
+			public const int yourOrder_amountRemaining = 2131165223;
+			
+			// aapt resource value: 0x7f070028
+			public const int yourOrder_amountTotal = 2131165224;
+			
+			// aapt resource value: 0x7f07002a
+			public const int yourOrder_cancelButton = 2131165226;
+			
+			// aapt resource value: 0x7f070025
+			public const int yourOrder_orderType = 2131165221;
+			
+			// aapt resource value: 0x7f070026
+			public const int yourOrder_pricePerUnit = 2131165222;
+			
+			// aapt resource value: 0x7f070029
+			public const int yourOrder_totalBtcPrice = 2131165225;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -203,6 +221,9 @@ namespace Bittrex
 			
 			// aapt resource value: 0x7f030009
 			public const int toolbar = 2130903049;
+			
+			// aapt resource value: 0x7f03000a
+			public const int YourOrderListViewItem = 2130903050;
 			
 			static Layout()
 			{

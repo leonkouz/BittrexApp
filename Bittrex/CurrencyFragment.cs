@@ -110,7 +110,7 @@ namespace Bittrex
             tradingPairText.Text = currencyString;
 
             var currencySelectedText = (TextView)view.FindViewById(Resource.Id.selectedCurrencyBalanceAvailableText);
-            currencySelectedText.Text = currencyString;
+            currencySelectedText.Text = Currency.Substring(4, Currency.Length - 4);
 
             //Set the amount of available BTC to the user
             btcBalance = (TextView)view.FindViewById(Resource.Id.btcBalance);
@@ -207,7 +207,7 @@ namespace Bittrex
             totalTextView.Text = totalPriceBtc.Text + " BTC";
 
             AlertDialog.Builder ad = new AlertDialog.Builder(Activity);
-            ad.SetTitle("Confirm your order");
+            ad.SetTitle("Confirm your sell order");
             ad.SetCancelable(false).SetPositiveButton("Confirm", delegate
             {
 
@@ -252,7 +252,7 @@ namespace Bittrex
             totalTextView.Text = totalPriceBtc.Text + " BTC";
 
             AlertDialog.Builder ad = new AlertDialog.Builder(Activity);
-            ad.SetTitle("Confirm your order");
+            ad.SetTitle("Confirm your buy order");
             ad.SetCancelable(false).SetPositiveButton("Confirm", delegate
             {
 
@@ -298,7 +298,6 @@ namespace Bittrex
             totalPriceBtc.Text = (amount * price).ToString("0.#########");
         }
         
-
         private async Task RefreshOrderBook()
         {
             while (MainActivity.isOnCurrencyFragment == true)
