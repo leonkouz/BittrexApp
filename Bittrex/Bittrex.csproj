@@ -55,8 +55,9 @@
     <EnableProguard>true</EnableProguard>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BittrexAPI">
-      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Debug\BittrexAPI.dll</HintPath>
+    <Reference Include="BittrexAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\Users\leon.kouzoukas\Documents\Visual Studio 2017\Projects\BittrexAPI\BittrexAPI\bin\Debug\BittrexAPI.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\Newtonsoft.Json.dll</HintPath>
@@ -108,6 +109,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\CurrencyOrderListViewItem.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\OrderConfirmationLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <None Include="schemas.android.com.apk.res.android.xsd">

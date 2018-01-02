@@ -48,7 +48,6 @@ namespace Bittrex
             base.OnCreate(savedInstanceState);
         }
 
-
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
             base.OnCreateOptionsMenu(menu, inflater);
@@ -170,6 +169,13 @@ namespace Bittrex
             orderAmount.TextChanged += OrderData_TextChanged;
             orderPrice.TextChanged += OrderData_TextChanged;
 
+            //Subscribe the order buttons to on click event
+            var buyButton = (Button)view.FindViewById(Resource.Id.buyOrderbutton);
+            var sellButton = (Button)view.FindViewById(Resource.Id.sellOrderbutton);
+
+            buyButton.Click += BuyButton_Click;
+            sellButton.Click += SellButton_Click;
+
             //Testing awaiting method
             var t = Task.Run(async () => {
                 await RefreshOrderBook();
@@ -179,6 +185,96 @@ namespace Bittrex
             //RefreshOrderBook();
 
             return view;
+        }
+
+        private void SellButton_Click(object sender, EventArgs e)
+        {
+            //Inflate the dialog layout that should appear when a button is pressed
+            LayoutInflater layoutInfalter = LayoutInflater.From(Activity);
+            View mView = layoutInfalter.Inflate(Resource.Layout.OrderConfirmationLayout, null);
+
+            //Gets a string of the currency to use as a label
+            string currencyOnly = Currency.Substring(4, Currency.Length - 4);
+
+            //Set the information of the order
+            var amountTextView = (TextView)mView.FindViewById(Resource.Id.confirmAmount);
+            amountTextView.Text = orderAmount.Text + " " + currencyOnly;
+
+            var priceTextView = (TextView)mView.FindViewById(Resource.Id.confirmPrice);
+            priceTextView.Text = orderPrice.Text + " BTC";
+
+            var totalTextView = (TextView)mView.FindViewById(Resource.Id.confirmTotal);
+            totalTextView.Text = totalPriceBtc.Text + " BTC";
+
+            AlertDialog.Builder ad = new AlertDialog.Builder(Activity);
+            ad.SetTitle("Confirm your order");
+            ad.SetCancelable(false).SetPositiveButton("Confirm", delegate
+            {
+
+                double amount = Convert.ToDouble(orderAmount.Text);
+                double price = Convert.ToDouble(orderPrice.Text);
+
+                try
+                {
+                    string orderUUID = APIMethods.PlaceSellLimitOrder(Currency, amount, price);
+                }
+                catch (Exception i)
+                {
+                    Toast.MakeText(Activity, i.Message.ToString(), ToastLength.Short).Show();
+                }
+
+            }).SetNegativeButton("Cancel", delegate
+            {
+                ad.Dispose();
+            });
+
+            ad.SetView(mView);
+            ad.Show();
+        }
+
+        private void BuyButton_Click(object sender, EventArgs e)
+        {
+            //Inflate the dialog layout that should appear when a button is pressed
+            LayoutInflater layoutInfalter = LayoutInflater.From(Activity);
+            View mView = layoutInfalter.Inflate(Resource.Layout.OrderConfirmationLayout, null);
+
+            //Gets a string of the currency to use as a label
+            string currencyOnly = Currency.Substring(4, Currency.Length - 4);
+
+            //Set the information of the order
+            var amountTextView = (TextView)mView.FindViewById(Resource.Id.confirmAmount);
+            amountTextView.Text = orderAmount.Text + " " + currencyOnly;
+
+            var priceTextView = (TextView)mView.FindViewById(Resource.Id.confirmPrice);
+            priceTextView.Text = orderPrice.Text + " BTC";
+
+            var totalTextView = (TextView)mView.FindViewById(Resource.Id.confirmTotal);
+            totalTextView.Text = totalPriceBtc.Text + " BTC";
+
+            AlertDialog.Builder ad = new AlertDialog.Builder(Activity);
+            ad.SetTitle("Confirm your order");
+            ad.SetCancelable(false).SetPositiveButton("Confirm", delegate
+            {
+
+                double amount = Convert.ToDouble(orderAmount.Text);
+                double price = Convert.ToDouble(orderPrice.Text);
+
+                try
+                {
+                    string orderUUID = APIMethods.PlaceBuyLimitOrder(Currency, amount, price);
+                }
+                catch (Exception i)
+                {
+                    Toast.MakeText(Activity, i.Message.ToString(), ToastLength.Short).Show();
+                }
+
+            }).SetNegativeButton("Cancel", delegate
+            {
+                ad.Dispose();
+            });
+
+            ad.SetView(mView);
+            ad.Show();
         }
 
         private void OrderListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -192,7 +288,6 @@ namespace Bittrex
 
             orderAmount.Text = amount;
             orderPrice.Text = price;
-
         }
 
         private void OrderData_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
