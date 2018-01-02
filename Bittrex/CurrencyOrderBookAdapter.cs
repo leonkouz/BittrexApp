@@ -14,7 +14,7 @@ using Android.Widget;
 
 namespace Bittrex
 {
-    class CurrencyOrderBookAdapter : BaseAdapter<Order>
+    class CurrencyOrderBookAdapter : BaseAdapter<string>
     {
         private IList<Order> _orders;
         private readonly Context _context;
@@ -28,9 +28,15 @@ namespace Bittrex
             _isBuyOrders = isBuyOrders; //Used to determine if it is the buy orders or the sell orders to set the colour of the text
         }
 
-        public override Order this[int position]
+        public override string this[int position]
         {
-            get { return _orders[position]; }
+            get
+            {
+                var order = _orders[position];
+                string stringData = order.Quantity.ToString("0.#########") + "," + order.Rate.ToString("0.#########");
+
+                return stringData;
+            }
         }
 
         public override int Count

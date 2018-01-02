@@ -27,6 +27,13 @@ namespace Bittrex
         public static TextView lastTextView;
         public static Ticker tick;
 
+        public static TextView btcBalance;
+        public static TextView selectedCurrencyBalance;
+
+        public static EditText orderAmount;
+        public static EditText orderPrice;
+        public static TextView totalPriceBtc;
+
         OrderBook orderBook;
 
         ListView buyOrderListView;
@@ -39,7 +46,6 @@ namespace Bittrex
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            
         }
 
 
@@ -56,7 +62,6 @@ namespace Bittrex
             Currency = currency;
             return currencyFrag;
         }
-
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
@@ -97,7 +102,52 @@ namespace Bittrex
             sellAdapter = new CurrencyOrderBookAdapter(Activity, orderBook.Sells.ToList(), false);
             sellOrderListView.Adapter = sellAdapter;
 
-            //Get API data for currency
+            //Set the on item click event for the listviews
+            sellOrderListView.ItemClick += OrderListView_ItemClick;
+            buyOrderListView.ItemClick += OrderListView_ItemClick;
+
+            //Set the trading pair text
+            var tradingPairText = (TextView)view.FindViewById(Resource.Id.tradingPairText);
+            tradingPairText.Text = currencyString;
+
+            var currencySelectedText = (TextView)view.FindViewById(Resource.Id.selectedCurrencyBalanceAvailableText);
+            currencySelectedText.Text = currencyString;
+
+            //Set the amount of available BTC to the user
+            btcBalance = (TextView)view.FindViewById(Resource.Id.btcBalance);
+
+            string btcBalanceAmount = "0.000000000";
+
+            try
+            {
+                Balance b = APIMethods.GetBalance("BTC");
+                btcBalanceAmount = b.balance.ToString("0.#########");
+            }
+            catch
+            {
+                Toast.MakeText(Activity, "Unable to get BTC Balance, ensure API keys are correct", ToastLength.Short).Show();
+            }
+
+            btcBalance.Text = btcBalanceAmount;
+
+            //Set the amount of available currency for the currency selected
+            selectedCurrencyBalance = (TextView)view.FindViewById(Resource.Id.selectedCurrencyBalance);
+
+            string selectedCurrencyBalanceAmount = "0.000000000";
+
+            try
+            {
+                Balance b = APIMethods.GetBalance(currencyString);
+                selectedCurrencyBalanceAmount = b.balance.ToString("0.#########");
+            }
+            catch
+            {
+                Toast.MakeText(Activity, "Unable to get " + currencyString + " Balance, ensure API keys are correct", ToastLength.Short).Show();
+            }
+
+            selectedCurrencyBalance.Text = selectedCurrencyBalanceAmount;
+
+            //Get 24 hour API data for currency
             try
             {
                  tick = APIMethods.GetTicker(currencyString);
@@ -105,7 +155,6 @@ namespace Bittrex
             catch (Exception e)
             {
                 Toast.MakeText(Activity, e.Message.ToString(), ToastLength.Short).Show();
-                return view;
             }
             
             //Sets the buy and sell prices
@@ -113,11 +162,47 @@ namespace Bittrex
             sellTextView.Text = tick.Ask.ToString("0.#########");
             lastTextView.Text = tick.Last.ToString("0.#########");
 
+            //Subscribe to text changed events for order section
+            totalPriceBtc = (TextView)view.FindViewById(Resource.Id.totalBtcPrice);
+            orderAmount = (EditText)view.FindViewById(Resource.Id.amountToPurchase);
+            orderPrice = (EditText)view.FindViewById(Resource.Id.priceToPurchase);
+
+            orderAmount.TextChanged += OrderData_TextChanged;
+            orderPrice.TextChanged += OrderData_TextChanged;
+
+            //Testing awaiting method
+            var t = Task.Run(async () => {
+                await RefreshOrderBook();
+            });
+
             //invoke loop method but DO NOT await it
-            RefreshOrderBook();
+            //RefreshOrderBook();
 
             return view;
         }
+
+        private void OrderListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            var order = e.Parent.GetItemAtPosition(e.Position).ToString();
+
+            string[] orderData = order.Split(',');
+
+            string amount = orderData[0];
+            string price = orderData[1];
+
+            orderAmount.Text = amount;
+            orderPrice.Text = price;
+
+        }
+
+        private void OrderData_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
+        {
+            double amount = Convert.ToDouble(orderAmount.Text);
+            double price = Convert.ToDouble(orderPrice.Text);
+
+            totalPriceBtc.Text = (amount * price).ToString("0.#########");
+        }
+        
 
         private async Task RefreshOrderBook()
         {
@@ -140,7 +225,6 @@ namespace Bittrex
                 await Task.Delay(1000);
             }
         }
-        
 
         public static void OnMenuItemClick(Activity activity)
         {
@@ -162,6 +246,4 @@ namespace Bittrex
         }
 
     }
-
-
 }
