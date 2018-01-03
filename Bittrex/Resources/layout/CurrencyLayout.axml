@@ -182,7 +182,7 @@
                         android:paddingLeft="5dp"
                         android:text="Your orders:" />
                     <ListView
-                        android:id="@+id/sellOrders_listView"
+                        android:id="@+id/yourOrder_listView"
                         android:layout_width="fill_parent"
                         android:textColor="#FF0000"
                         android:layout_height="wrap_content"

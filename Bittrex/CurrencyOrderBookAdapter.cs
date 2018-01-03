@@ -20,7 +20,6 @@ namespace Bittrex
         private readonly Context _context;
         private readonly bool _isBuyOrders;
 
-
         public CurrencyOrderBookAdapter(Context context, IList<Order> orders, bool isBuyOrders)
         {
             _orders = orders;
@@ -32,6 +31,7 @@ namespace Bittrex
         {
             get
             {
+                //Returns the quantity and rate in a single string
                 var order = _orders[position];
                 string stringData = order.Quantity.ToString("0.#########") + "," + order.Rate.ToString("0.#########");
 

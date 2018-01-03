@@ -22,6 +22,8 @@ namespace Bittrex
 
         public static string Currency;
 
+        public static Activity activity;
+
         public static TextView buyTextView;
         public static TextView sellTextView;
         public static TextView lastTextView;
@@ -35,11 +37,14 @@ namespace Bittrex
         public static TextView totalPriceBtc;
 
         OrderBook orderBook;
-
+        List<OpenOrder> usersOrders;
+        
         ListView buyOrderListView;
         ListView sellOrderListView;
+        ListView usersOrderListView;
         CurrencyOrderBookAdapter buyAdapter;
         CurrencyOrderBookAdapter sellAdapter;
+        public static YourOrdersListViewAdapter usersOrderAdapter;
 
         public static System.Timers.Timer timer;
 
@@ -101,6 +106,28 @@ namespace Bittrex
             sellAdapter = new CurrencyOrderBookAdapter(Activity, orderBook.Sells.ToList(), false);
             sellOrderListView.Adapter = sellAdapter;
 
+            //Used to handle OnClick events on users Orders cancel button
+            activity = Activity;
+
+            //Get the current open orders for the specified currency
+            try
+            {
+                usersOrders = APIMethods.GetOpenOrders(currencyString);
+            }
+            catch (Exception exc)
+            {
+                usersOrders = new List<OpenOrder>();
+
+                Toast.MakeText(Activity, exc.Message.ToString(), ToastLength.Short).Show();
+            }
+
+            //Find the listview for users orders
+            usersOrderListView = (ListView)view.FindViewById(Resource.Id.yourOrder_listView);
+
+            //Create a new adapter for users order listview
+            usersOrderAdapter = new YourOrdersListViewAdapter(Activity, usersOrders);
+            usersOrderListView.Adapter = usersOrderAdapter;
+
             //Set the on item click event for the listviews
             sellOrderListView.ItemClick += OrderListView_ItemClick;
             buyOrderListView.ItemClick += OrderListView_ItemClick;
@@ -136,7 +163,7 @@ namespace Bittrex
 
             try
             {
-                Balance b = APIMethods.GetBalance(currencyString);
+                Balance b = APIMethods.GetBalance(Currency.Substring(4, Currency.Length - 4));
                 selectedCurrencyBalanceAmount = b.balance.ToString("0.#########");
             }
             catch
@@ -179,6 +206,11 @@ namespace Bittrex
             //Testing awaiting method
             var t = Task.Run(async () => {
                 await RefreshOrderBook();
+            });
+
+            //Testing awaiting method
+            var task = Task.Run(async () => {
+                await RefreshUserOrders();
             });
 
             //invoke loop method but DO NOT await it
@@ -297,7 +329,25 @@ namespace Bittrex
 
             totalPriceBtc.Text = (amount * price).ToString("0.#########");
         }
-        
+
+        private async Task RefreshUserOrders()
+        {
+            try
+            {
+                //Refresh users orders
+                usersOrders = APIMethods.GetOpenOrders(currencyString);
+                usersOrderAdapter.Update(usersOrders, Activity);
+            }
+            catch (Exception except)
+            {
+                Toast.MakeText(Activity, "Unable to update users orders: " + except.Message.ToString() , ToastLength.Short).Show();
+            }
+
+            //Wait for 1 second
+            await Task.Delay(1000);
+        }
+
+
         private async Task RefreshOrderBook()
         {
             while (MainActivity.isOnCurrencyFragment == true)
@@ -309,10 +359,12 @@ namespace Bittrex
 
                     sellAdapter.Update(orderBook.Sells.ToList(), Activity);
                     buyAdapter.Update(orderBook.Buys.ToList(), Activity);
+
                 }
                 catch
                 {
-                    Toast.MakeText(Activity, "Unable to update orders", ToastLength.Short).Show();
+                    Toast.MakeText(Activity, "Unable to update market orders", ToastLength.Short).Show();
+                    continue;
                 }
 
                 //Wait for 1 second

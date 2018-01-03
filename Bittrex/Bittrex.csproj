@@ -57,10 +57,11 @@
   <ItemGroup>
     <Reference Include="BittrexAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\Users\leon.kouzoukas\Documents\Visual Studio 2017\Projects\BittrexAPI\BittrexAPI\bin\Debug\BittrexAPI.dll</HintPath>
+      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Debug\BittrexAPI.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Release\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BittrexAPI\BittrexAPI\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
