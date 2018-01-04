@@ -69,6 +69,11 @@ namespace Bittrex
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
+            AppDomain currentDomain = AppDomain.CurrentDomain;
+            currentDomain.UnhandledException += CurrentDomain_UnhandledException;
+
+            AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
+
             // Use this to return your custom view for this Fragment
             var view = inflater.Inflate(Resource.Layout.CurrencyLayout, container, false);
 
@@ -217,6 +222,16 @@ namespace Bittrex
             //RefreshOrderBook();
 
             return view;
+        }
+
+        private void AndroidEnvironment_UnhandledExceptionRaiser(object sender, RaiseThrowableEventArgs e)
+        {
+            throw new ApplicationException();
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            throw new ApplicationException();
         }
 
         private void SellButton_Click(object sender, EventArgs e)
