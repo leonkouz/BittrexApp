@@ -1,6 +1,5 @@
 ﻿using System;
 using BittrexAPI;
-using Newtonsoft.Json;
 using static System.Security.Cryptography.Encryption;
 
 
@@ -25,7 +24,7 @@ namespace Bittrex
 
             SetContentView(Resource.Layout.Login);
 
-            CreateSecretPassword();
+           CreateSecretPassword();
 
             //Checks if there are any keys already stored locally
             bool keysExist = CheckLocalKeysExist();
@@ -48,7 +47,7 @@ namespace Bittrex
 
             //Login button click action
             login.Click += (object sender, EventArgs e) => {
-
+                
                 //Get the text from the boxxes
                 string apiKey = apiKeyBox.Text;
                 string apiKeyEncrypted = Encrypt(apiKey, LoginData.SecretPasswordString);

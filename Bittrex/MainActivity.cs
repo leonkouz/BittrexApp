@@ -1,7 +1,6 @@
 ﻿using System;
 using BittrexAPI;
 using BittrexAPI.Structures;
-using Newtonsoft.Json;
 
 using Android.App;
 using Android.Views.InputMethods;

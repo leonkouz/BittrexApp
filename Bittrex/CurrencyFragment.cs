@@ -127,7 +127,7 @@ namespace Bittrex
             usersOrderListView = (ListView)view.FindViewById(Resource.Id.yourOrder_listView);
 
             //Create a new adapter for users order listview
-            usersOrderAdapter = new YourOrdersListViewAdapter(Activity, usersOrders);
+            usersOrderAdapter = new YourOrdersListViewAdapter(this.Context, usersOrders);
             usersOrderListView.Adapter = usersOrderAdapter;
 
             //Set the on item click event for the listviews
