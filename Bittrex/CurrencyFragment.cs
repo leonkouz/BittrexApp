@@ -206,13 +206,18 @@ namespace Bittrex
             sellButton.Click += SellButton_Click;
 
             //Testing awaiting method
-            var t = Task.Run(async () => {
+            var rereshOrderBook = Task.Run(async () => {
                 await RefreshOrderBook();
             });
 
             //Testing awaiting method
-            var task = Task.Run(async () => {
+            var refreshUsersOrders = Task.Run(async () => {
                 await RefreshUserOrders();
+            });
+
+            //Testing awaiting method
+            var refreshAvailableBalances = Task.Run(async () => {
+                await RefreshAvailableBalances();
             });
 
             //invoke loop method but DO NOT await it
@@ -397,7 +402,7 @@ namespace Bittrex
         }
 
 
-        private async Task RefreshOrderBook()
+        private async Task RefreshAvailableBalances()
         {
             while (MainActivity.isOnCurrencyFragment == true)
             {
@@ -418,7 +423,33 @@ namespace Bittrex
                     //Change the text on the UI thread
                     selectedCurrencyBalance.Text = selectedCurrencyBalanceAmount;
                 });
-                
+
+                //Update the BTC currency balance
+                string btcCurrencyBalanceAmount = "0.000000000";
+                try
+                {
+                    Balance b = APIMethods.GetBalance("BTC");
+                    btcCurrencyBalanceAmount = b.Available.ToString("0.#########");
+                }
+                catch
+                {
+                    Toast.MakeText(Activity, "Unable to get BTC Balance, ensure API keys are correct", ToastLength.Short).Show();
+                }
+
+                activity.RunOnUiThread(() =>
+                {
+                    //Change the text on the UI thread
+                    btcBalance.Text = btcCurrencyBalanceAmount;
+                });
+
+                await Task.Delay(1000);
+            }
+        }
+
+        private async Task RefreshOrderBook()
+        {
+            while (MainActivity.isOnCurrencyFragment == true)
+            {
                 try
                 {
                     //Get new orderbook
