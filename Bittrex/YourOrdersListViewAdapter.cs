@@ -79,32 +79,31 @@ namespace Bittrex
 
             OpenOrder orderItem = YourOrdersListViewAdapter._openOrders[buttonPosition];
 
-            await CancelOrder(orderItem);
+            //Testing awaiting method
+            var task = Task.Run(async () => {
+                await CancelOrder(orderItem);
+            });
         }
 
         public async Task CancelOrder(OpenOrder order)
         {
-            while (MainActivity.isOnCurrencyFragment == true)
+            try
             {
-                try
-                {
-                    //Cancel Order
-                    APIMethods.CancelOrder(order.OrderUuid);
+                //Cancel Order
+                APIMethods.CancelOrder(order.OrderUuid);
 
-                    //Get new order
-                    var newOpenOrderList = APIMethods.GetOpenOrders(order.Exchange);
+                //Get new order
+                var newOpenOrderList = APIMethods.GetOpenOrders(order.Exchange);
 
-                    //update list
-                    CurrencyFragment.usersOrderAdapter.Update(newOpenOrderList, CurrencyFragment.activity);
-                }
-                catch
-                {
-                    Toast.MakeText(_context, "Unable to update orders", ToastLength.Short).Show();
-                }
-
-                await Task.Delay(1);
+                //update list
+                CurrencyFragment.usersOrderAdapter.Update(newOpenOrderList, CurrencyFragment.activity);
             }
-        }
+            catch
+            {
+                Toast.MakeText(_context, "Unable to update orders", ToastLength.Short).Show();
+            }
 
+            await Task.Delay(1);
+        }
     }
 }

@@ -36,6 +36,8 @@ namespace Bittrex
         public static EditText orderPrice;
         public static TextView totalPriceBtc;
 
+        public static TextView currencySelectedText;
+
         OrderBook orderBook;
         List<OpenOrder> usersOrders;
         
@@ -136,7 +138,7 @@ namespace Bittrex
             var tradingPairText = (TextView)view.FindViewById(Resource.Id.tradingPairText);
             tradingPairText.Text = currencyString;
 
-            var currencySelectedText = (TextView)view.FindViewById(Resource.Id.selectedCurrencyBalanceAvailableText);
+            currencySelectedText = (TextView)view.FindViewById(Resource.Id.selectedCurrencyBalanceAvailableText);
             currencySelectedText.Text = Currency.Substring(4, Currency.Length - 4);
 
             //Set the amount of available BTC to the user
@@ -215,7 +217,6 @@ namespace Bittrex
 
             //invoke loop method but DO NOT await it
             //RefreshOrderBook();
-
             return view;
         }
 
@@ -313,12 +314,39 @@ namespace Bittrex
         {
             var order = e.Parent.GetItemAtPosition(e.Position).ToString();
 
+            double availableAmount;
+            try
+            {
+                availableAmount = Convert.ToDouble(selectedCurrencyBalance.Text);
+            }
+            catch
+            {
+                availableAmount = 0;
+            }
+            
             string[] orderData = order.Split(',');
 
-            string amount = orderData[0];
+            double amount;
+            try
+            {
+                amount = Convert.ToDouble(orderData[0]);
+            }
+            catch
+            {
+                amount = 0;
+            }
+            
             string price = orderData[1];
 
-            orderAmount.Text = amount;
+            if(availableAmount > amount)
+            {
+                orderAmount.Text = amount.ToString("0.#########");
+            }
+            else
+            {
+                orderAmount.Text = availableAmount.ToString("0.#########");
+            }
+            
             orderPrice.Text = price;
         }
 
@@ -350,19 +378,22 @@ namespace Bittrex
 
         private async Task RefreshUserOrders()
         {
-            try
+            while (MainActivity.isOnCurrencyFragment == true)
             {
-                //Refresh users orders
-                usersOrders = APIMethods.GetOpenOrders(currencyString);
-                usersOrderAdapter.Update(usersOrders, Activity);
-            }
-            catch (Exception except)
-            {
-                Toast.MakeText(Activity, "Unable to update users orders: " + except.Message.ToString() , ToastLength.Short).Show();
-            }
+                try
+                {
+                    //Refresh users orders
+                    usersOrders = APIMethods.GetOpenOrders(currencyString);
+                    usersOrderAdapter.Update(usersOrders, Activity);
+                }
+                catch (Exception except)
+                {
+                    Toast.MakeText(Activity, "Unable to update users orders: " + except.Message.ToString(), ToastLength.Short).Show();
+                }
 
-            //Wait for 1 second
-            await Task.Delay(1000);
+                //Wait for 1 second
+                await Task.Delay(1000);
+            }
         }
 
 
@@ -370,6 +401,24 @@ namespace Bittrex
         {
             while (MainActivity.isOnCurrencyFragment == true)
             {
+                //Update the selected currency balance
+                string selectedCurrencyBalanceAmount = "0.000000000";
+                try
+                {
+                    Balance b = APIMethods.GetBalance(Currency.Substring(4, Currency.Length - 4));
+                    selectedCurrencyBalanceAmount = b.Available.ToString("0.#########");
+                }
+                catch
+                {
+                    Toast.MakeText(Activity, "Unable to get " + currencyString + " Balance, ensure API keys are correct", ToastLength.Short).Show();
+                }
+
+                activity.RunOnUiThread(() =>
+                {
+                    //Change the text on the UI thread
+                    selectedCurrencyBalance.Text = selectedCurrencyBalanceAmount;
+                });
+                
                 try
                 {
                     //Get new orderbook
@@ -377,7 +426,7 @@ namespace Bittrex
 
                     sellAdapter.Update(orderBook.Sells.ToList(), Activity);
                     buyAdapter.Update(orderBook.Buys.ToList(), Activity);
-
+                    
                 }
                 catch
                 {
