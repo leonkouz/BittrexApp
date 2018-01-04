@@ -69,11 +69,6 @@ namespace Bittrex
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
-            AppDomain currentDomain = AppDomain.CurrentDomain;
-            currentDomain.UnhandledException += CurrentDomain_UnhandledException;
-
-            AndroidEnvironment.UnhandledExceptionRaiser += AndroidEnvironment_UnhandledExceptionRaiser;
-
             // Use this to return your custom view for this Fragment
             var view = inflater.Inflate(Resource.Layout.CurrencyLayout, container, false);
 
@@ -169,7 +164,7 @@ namespace Bittrex
             try
             {
                 Balance b = APIMethods.GetBalance(Currency.Substring(4, Currency.Length - 4));
-                selectedCurrencyBalanceAmount = b.balance.ToString("0.#########");
+                selectedCurrencyBalanceAmount = b.Available.ToString("0.#########");
             }
             catch
             {
@@ -222,16 +217,6 @@ namespace Bittrex
             //RefreshOrderBook();
 
             return view;
-        }
-
-        private void AndroidEnvironment_UnhandledExceptionRaiser(object sender, RaiseThrowableEventArgs e)
-        {
-            throw new ApplicationException();
-        }
-
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            throw new ApplicationException();
         }
 
         private void SellButton_Click(object sender, EventArgs e)
@@ -339,8 +324,26 @@ namespace Bittrex
 
         private void OrderData_TextChanged(object sender, Android.Text.TextChangedEventArgs e)
         {
-            double amount = Convert.ToDouble(orderAmount.Text);
-            double price = Convert.ToDouble(orderPrice.Text);
+            double amount;
+            double price;
+
+            try
+            {
+                amount = Convert.ToDouble(orderAmount.Text);
+            }
+            catch
+            {
+                amount = 0;
+            };
+
+            try
+            {
+                price = Convert.ToDouble(orderPrice.Text);
+            }
+            catch
+            {
+                price = 0;
+            }
 
             totalPriceBtc.Text = (amount * price).ToString("0.#########");
         }

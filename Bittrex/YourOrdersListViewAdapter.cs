@@ -64,10 +64,10 @@ namespace Bittrex
             }
 
             view.FindViewById<TextView>(Resource.Id.yourOrder_orderType).Text = openOrder.OrderType;
-            view.FindViewById<TextView>(Resource.Id.yourOrder_pricePerUnit).Text = openOrder.PricePerUnit.ToString("0.#########");
+            view.FindViewById<TextView>(Resource.Id.yourOrder_pricePerUnit).Text = openOrder.Limit.ToString("0.#########");
             view.FindViewById<TextView>(Resource.Id.yourOrder_amountRemaining).Text = openOrder.QuantityRemaining.ToString("0.#########");
             view.FindViewById<TextView>(Resource.Id.yourOrder_amountTotal).Text = openOrder.Quantity.ToString("0.#########");
-            view.FindViewById<TextView>(Resource.Id.yourOrder_totalBtcPrice).Text = openOrder.Price.ToString("0.#########");
+            view.FindViewById<TextView>(Resource.Id.yourOrder_totalBtcPrice).Text = (openOrder.Limit * openOrder.Quantity).ToString("0.#########");
             view.FindViewById<Button>(Resource.Id.yourOrder_cancelButton).Click += CancelOrderButton_Click;
 
             return view;

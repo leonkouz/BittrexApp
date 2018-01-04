@@ -6,38 +6,38 @@
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="0px"
-        android:textSize="10"
+        android:textSize="10dp"
         android:layout_weight="1"
         android:id="@+id/yourOrder_orderType" />
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="0px"
-        android:textSize="10"
+        android:textSize="10dp"
         android:layout_weight="1"
         android:id="@+id/yourOrder_pricePerUnit" />
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="0px"
-        android:textSize="10"
+        android:textSize="10dp"
         android:layout_weight="1"
         android:id="@+id/yourOrder_amountRemaining" />
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="0px"
-        android:textSize="10"
+        android:textSize="10dp"
         android:layout_weight="1"
         android:id="@+id/yourOrder_amountTotal" />
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="0px"
-        android:textSize="10"
+        android:textSize="10dp"
         android:layout_weight="1"
         android:id="@+id/yourOrder_totalBtcPrice" />
     <Button
         android:layout_height="wrap_content"
         android:layout_width="0px"
         android:layout_weight="1"
-        android:textSize="10"
+        android:textSize="10dp"
         android:text="Cancel"
         android:id="@+id/yourOrder_cancelButton" />
 </LinearLayout>
