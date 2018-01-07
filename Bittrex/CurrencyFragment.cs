@@ -76,17 +76,17 @@ namespace Bittrex
 
             var viewMain = inflater.Inflate(Resource.Layout.Main, null, false);
 
-            var toolbar = viewMain.FindViewById<Toolbar>(Resource.Id.toolbar);
+            var topToolbar = viewMain.FindViewById<Toolbar>(Resource.Id.toolbar);
 
             //Hooks into the refresh button listerner
             ToolbarOnClickListener listener = new ToolbarOnClickListener(Activity, buyTextView, sellTextView, lastTextView, currencyString);
 
-            toolbar.SetOnMenuItemClickListener(listener);
+            topToolbar.SetOnMenuItemClickListener(listener);
 
-            //Finds the text view
-            buyTextView = view.FindViewById<TextView>(Resource.Id.buyPrice);
-            sellTextView = view.FindViewById<TextView>(Resource.Id.sellPrice);
-            lastTextView = view.FindViewById<TextView>(Resource.Id.lastPrice);
+            //Gets the bottom toolbar
+            var bottomToolbar = (Toolbar)view.FindViewById(Resource.Id.currencyToolbar);
+            bottomToolbar.InflateMenu(Resource.Menu.bot_currency_menu);
+            bottomToolbar.MenuItemClick += BottomToolbar_MenuItemClick;
 
             //Get the orders for the market
             orderBook = APIMethods.GetOrderBook(currencyString, Order.Type.both);
@@ -175,21 +175,6 @@ namespace Bittrex
 
             selectedCurrencyBalance.Text = selectedCurrencyBalanceAmount;
 
-            //Get 24 hour API data for currency
-            try
-            {
-                 tick = APIMethods.GetTicker(currencyString);
-            }
-            catch (Exception e)
-            {
-                Toast.MakeText(Activity, e.Message.ToString(), ToastLength.Short).Show();
-            }
-            
-            //Sets the buy and sell prices
-            buyTextView.Text = tick.Bid.ToString("0.#########");
-            sellTextView.Text = tick.Ask.ToString("0.#########");
-            lastTextView.Text = tick.Last.ToString("0.#########");
-
             //Subscribe to text changed events for order section
             totalPriceBtc = (TextView)view.FindViewById(Resource.Id.totalBtcPrice);
             orderAmount = (EditText)view.FindViewById(Resource.Id.amountToPurchase);
@@ -223,6 +208,51 @@ namespace Bittrex
             //invoke loop method but DO NOT await it
             //RefreshOrderBook();
             return view;
+        }
+
+        private void BottomToolbar_MenuItemClick(object sender, Toolbar.MenuItemClickEventArgs e)
+        {
+            if (e.Item.ItemId == Resource.Id.currencyToolbar_ordersButton)
+            {
+                return;
+            }
+
+            if (e.Item.ItemId == Resource.Id.currencyToolbar_chartButton)
+            {
+                // Execute a transaction, replacing any existing fragment with this one inside the frame.
+                var fragmentTransaction = FragmentManager.BeginTransaction();
+
+                fragmentTransaction.Hide(this);
+
+                //check if fragment has been added
+                Fragment chartFragment = FragmentManager.FindFragmentByTag("chartFragment");
+
+                if(chartFragment != null)
+                {
+                    if (chartFragment.IsAdded)
+                    {
+                        fragmentTransaction.Show(MainActivity.chartFragment);
+                    }
+                    else
+                    {
+                        fragmentTransaction.Add(Resource.Id.fragmentContainer, MainActivity.chartFragment, "chartFragment");
+                    }
+                }
+                else
+                {
+                    fragmentTransaction.Add(Resource.Id.fragmentContainer, MainActivity.chartFragment, "chartFragment");
+                }
+                
+                //fragmentTransaction.AddToBackStack(null);
+                fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
+                fragmentTransaction.Commit();
+            }
+
+            if(e.Item.ItemId == Resource.Id.currencyToolbar_historyButton)
+            {
+                return;
+            }
+
         }
 
         private void SellButton_Click(object sender, EventArgs e)

@@ -20,6 +20,7 @@ namespace Bittrex
     [Activity(Label = "Bittrex")]
     public class MainActivity : Activity
     {
+        public static Android.Content.Res.AssetManager assets;
 
         List<Market> currencies;
         List<string> currenciesStringList;
@@ -27,12 +28,20 @@ namespace Bittrex
         SearchView _searchView;
         SearchableAdapter _adapter;
 
+        public static Fragment orderFragment;
+        public static Fragment chartFragment;
+
+        public static string currentFragment;
+
         public static bool isOnCurrencyFragment = false;
 
         public static IMenuItem refreshButton;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            //Loads the assets of the application
+            assets = this.Assets;
+
             //Get the list of currencies
             currencies = APIMethods.GetMarkets();
             currenciesStringList = new List<string>();
@@ -98,6 +107,7 @@ namespace Bittrex
                 _listView.Enabled = true;
                 _searchView.Enabled = true;
             }
+
             base.OnBackPressed();
         }
 
@@ -132,16 +142,19 @@ namespace Bittrex
             InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
             imm.HideSoftInputFromWindow(_searchView.WindowToken, 0);
 
-
             //Gets the text of the item selecxted
             var selectedItem = e.Parent.GetItemAtPosition(e.Position).ToString();
 
-            //Creates a new fragment and parses the selected currency
-            var fragment = CurrencyFragment.NewInstance(selectedItem);
+            //Creates new fragments and parses the selected currency
+            orderFragment = CurrencyFragment.NewInstance(selectedItem);
+            chartFragment = CurrencyChartFragment.NewInstance(selectedItem);
+
+
+            currentFragment = "orders";
 
             // Execute a transaction, replacing any existing fragment with this one inside the frame.
             var fragmentTransaction = FragmentManager.BeginTransaction();
-            fragmentTransaction.Replace(Resource.Id.fragmentContainer, fragment);
+            fragmentTransaction.Replace(Resource.Id.fragmentContainer, orderFragment, "orderFragment");
             fragmentTransaction.AddToBackStack(null);
             fragmentTransaction.SetTransition(FragmentTransit.FragmentFade);
             fragmentTransaction.Commit();

@@ -1,8 +1,6 @@
 ﻿using System;
 using BittrexAPI;
 using static System.Security.Cryptography.Encryption;
-
-
 using Android.App;
 using Android.Content;
 using Android.Runtime;
@@ -10,12 +8,23 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.Text;
+using Android;
+using Android.Content.PM;
+using Android.Support.Design.Widget;
 
 namespace Bittrex
 {
     [Activity(Label = "LoginActivity", MainLauncher = true)]
     public class LoginActivity : Activity
     {
+        readonly string[] PermissionsLocation =
+        {
+            Manifest.Permission.AccessCoarseLocation,
+            Manifest.Permission.AccessFineLocation
+        };
+
+        const int RequestLocationId = 0;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //DeleteLocalDataTest();
@@ -24,13 +33,29 @@ namespace Bittrex
 
             SetContentView(Resource.Layout.Login);
 
-           CreateSecretPassword();
+            var view = FindViewById(Resource.Layout.Login);
+
+            const string permission = Manifest.Permission.AccessFineLocation;
+
+            if (CheckSelfPermission(permission) == (int)Permission.Granted)
+            {
+                //continue
+            }
+            else
+            {
+                //Explain to the user why we need to read the contacts
+                Snackbar.Make(view, "Access to local storage is required", Snackbar.LengthIndefinite)
+                        .SetAction("OK", v => RequestPermissions(PermissionsLocation, RequestLocationId))
+                        .Show();
+            }
+
+            CreateSecretPassword();
 
             //Checks if there are any keys already stored locally
             bool keysExist = CheckLocalKeysExist();
 
             //If keys exist
-            if(keysExist == true)
+            if (keysExist == true)
             {
                 //Starts the main activity
                 var intent = new Intent(this, typeof(MainActivity));
@@ -46,8 +71,9 @@ namespace Bittrex
             EditText secretKeyBox = FindViewById<EditText>(Resource.Id.SecretKey);
 
             //Login button click action
-            login.Click += (object sender, EventArgs e) => {
-                
+            login.Click += (object sender, EventArgs e) =>
+            {
+
                 //Get the text from the boxxes
                 string apiKey = apiKeyBox.Text;
                 string apiKeyEncrypted = Encrypt(apiKey, LoginData.SecretPasswordString);
@@ -88,6 +114,8 @@ namespace Bittrex
             };
         }
 
+
+
         public bool CheckLocalKeysExist()
         {
             //Retrieves data from local storage
@@ -99,7 +127,7 @@ namespace Bittrex
             {
                 return false;
             }
-            else 
+            else
             {
                 //Stores the keys to be used by the application
                 LoginData.APIKey = apiKey;

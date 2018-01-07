@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+       android:id="@+id/currencyToolbar_ordersButton"
+       android:showAsAction="always"
+       android:title="     Orders        " />
+  <item
+       android:id="@+id/currencyToolbar_chartButton"
+       android:showAsAction="always"
+       android:title="     Chart    " />
+  <item
+       android:id="@+id/currencyToolbar_historyButton"
+       android:showAsAction="always"
+       android:title="      Trade History    " />
+</menu>
