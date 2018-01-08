@@ -11,6 +11,7 @@ using System.Text;
 using Android;
 using Android.Content.PM;
 using Android.Support.Design.Widget;
+using Android.Util;
 
 namespace Bittrex
 {
@@ -19,8 +20,9 @@ namespace Bittrex
     {
         readonly string[] PermissionsLocation =
         {
-            Manifest.Permission.AccessCoarseLocation,
-            Manifest.Permission.AccessFineLocation
+            Manifest.Permission.WriteSettings,
+            Manifest.Permission.WriteSecureSettings,
+            Manifest.Permission.WriteExternalStorage,
         };
 
         const int RequestLocationId = 0;
@@ -33,8 +35,6 @@ namespace Bittrex
 
             SetContentView(Resource.Layout.Login);
 
-            var view = FindViewById(Resource.Layout.Login);
-
             const string permission = Manifest.Permission.AccessFineLocation;
 
             if (CheckSelfPermission(permission) == (int)Permission.Granted)
@@ -43,10 +43,7 @@ namespace Bittrex
             }
             else
             {
-                //Explain to the user why we need to read the contacts
-                Snackbar.Make(view, "Access to local storage is required", Snackbar.LengthIndefinite)
-                        .SetAction("OK", v => RequestPermissions(PermissionsLocation, RequestLocationId))
-                        .Show();
+                RequestPermissions(PermissionsLocation, RequestLocationId);
             }
 
             CreateSecretPassword();
