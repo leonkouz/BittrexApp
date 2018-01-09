@@ -347,42 +347,78 @@ namespace Bittrex
 
         private void OrderListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
+
             var order = e.Parent.GetItemAtPosition(e.Position).ToString();
 
-            double availableAmount;
-            try
+            if (e.Parent.Id == Resource.Id.sellOrders_listView)
             {
-                availableAmount = Convert.ToDouble(selectedCurrencyBalance.Text);
-            }
-            catch
-            {
-                availableAmount = 0;
-            }
-            
-            string[] orderData = order.Split(',');
+                double availableAmount;
 
-            double amount;
-            try
-            {
-                amount = Convert.ToDouble(orderData[0]);
-            }
-            catch
-            {
-                amount = 0;
-            }
-            
-            string price = orderData[1];
+                try
+                {
+                    availableAmount = Convert.ToDouble(selectedCurrencyBalance.Text);
+                }
+                catch
+                {
+                    availableAmount = 0;
+                }
 
-            if(availableAmount > amount)
-            {
-                orderAmount.Text = amount.ToString("0.#########");
+                string[] orderData = order.Split(',');
+
+                double amount;
+                try
+                {
+                    amount = Convert.ToDouble(orderData[0]);
+                }
+                catch
+                {
+                    amount = 0;
+                }
+
+                string price = orderData[1];
+
+                if (availableAmount > amount)
+                {
+                    orderAmount.Text = amount.ToString("0.#########");
+                }
+                else
+                {
+                    orderAmount.Text = availableAmount.ToString("0.#########");
+                }
+
+                orderPrice.Text = price;
+
             }
-            else
+            else if (e.Parent.Id == Resource.Id.buyOrders_listView)
             {
-                orderAmount.Text = availableAmount.ToString("0.#########");
+                double availableAmount;
+                try
+                {
+                    availableAmount = Convert.ToDouble(btcBalance.Text);
+                }
+                catch
+                {
+                    availableAmount = 0;
+                }
+
+                string[] orderData = order.Split(',');
+
+                double price; 
+
+                try
+                {
+                    price = Convert.ToDouble(orderData[1]);
+                }
+                catch
+                {
+                    price = 0;
+                }
+
+                string possiblePurchaseAmount = (availableAmount / price).ToString("0.#########");
+                
+                orderPrice.Text = price.ToString("0.#########");
+                orderAmount.Text = possiblePurchaseAmount;
             }
-            
-            orderPrice.Text = price;
         }
 
         private void OrderData_TextChanged(object sender, Android.Text.TextChangedEventArgs e)

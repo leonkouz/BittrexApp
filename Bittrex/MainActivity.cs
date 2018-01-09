@@ -99,6 +99,9 @@ namespace Bittrex
 
         public override void OnBackPressed()
         {
+
+
+
             if (isOnCurrencyFragment == true)
             {
                 refreshButton.SetVisible(false);
