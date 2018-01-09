@@ -16,7 +16,6 @@ namespace Bittrex
 {
     class ToolbarOnClickListener : Java.Lang.Object, Toolbar.IOnMenuItemClickListener
     {
-
         TextView buyTextView;
         TextView sellTextView;
         TextView lastTextView;

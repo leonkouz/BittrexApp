@@ -82,7 +82,6 @@ namespace Bittrex
             _searchView.SetQueryHint("Search currencies");
 
             _searchView.QueryTextChange += (s, e) => _adapter.Filter.InvokeFilter(new Java.Lang.String(e.NewText));
-
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -99,9 +98,6 @@ namespace Bittrex
 
         public override void OnBackPressed()
         {
-
-
-
             if (isOnCurrencyFragment == true)
             {
                 refreshButton.SetVisible(false);
@@ -127,13 +123,11 @@ namespace Bittrex
                 CurrencyFragment.OnMenuItemClick(this);
             }
 
-
             return base.OnOptionsItemSelected(item);
         }
 
         private void _listView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-
             refreshButton.SetEnabled(true);
             refreshButton.SetVisible(true);
             _listView.Enabled = false;
@@ -151,7 +145,6 @@ namespace Bittrex
             //Creates new fragments and parses the selected currency
             orderFragment = CurrencyFragment.NewInstance(selectedItem);
             chartFragment = CurrencyChartFragment.NewInstance(selectedItem);
-
 
             currentFragment = "orders";
 

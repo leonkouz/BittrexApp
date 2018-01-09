@@ -24,7 +24,6 @@ namespace Bittrex
         {
             _openOrders = orders;
             _context = context;
-
         }
 
         public override string this[int position]
@@ -53,7 +52,6 @@ namespace Bittrex
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-
             var openOrder = _openOrders[position];
             var view = convertView;
 

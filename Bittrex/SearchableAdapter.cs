@@ -52,7 +52,6 @@ namespace Bittrex
         {
             get { return _currencies[position]; }
         }
-
     }
 
     public class ViewHolder
@@ -99,10 +98,7 @@ namespace Bittrex
 
         protected override void PublishResults(ICharSequence constraint, FilterResults results)
         {
-
             _adapter._currencies = results.Values.ToNetObject<List<string>>();
-
-
             
            _adapter.NotifyDataSetChanged();
 

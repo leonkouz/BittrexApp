@@ -17,7 +17,6 @@ namespace Bittrex
 {
     public class CurrencyFragment : Fragment
     {
-
         public string currencyString { get { return Arguments.GetString("currency_string", ""); } }
 
         public static string Currency;
@@ -252,7 +251,6 @@ namespace Bittrex
             {
                 return;
             }
-
         }
 
         private void SellButton_Click(object sender, EventArgs e)
@@ -467,7 +465,6 @@ namespace Bittrex
             }
         }
 
-
         private async Task RefreshAvailableBalances()
         {
             while (MainActivity.isOnCurrencyFragment == true)
@@ -554,6 +551,5 @@ namespace Bittrex
                 Toast.MakeText(activity, e.Message.ToString(), ToastLength.Short).Show();
             }
         }
-
     }
 }

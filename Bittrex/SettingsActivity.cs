@@ -56,7 +56,6 @@ namespace Bittrex
             //Get the text input that appears on the dialog 
             var inputText = (TextView)mView.FindViewById(Resource.Id.settings_inputText);
 
-            
             AlertDialog.Builder ad = new AlertDialog.Builder(this);
             ad.SetTitle("Enter your new Secret Key");
             ad.SetCancelable(false).SetPositiveButton("Okay", delegate
@@ -84,8 +83,6 @@ namespace Bittrex
 
             ad.SetView(mView);
             ad.Show();
-
-
         }
 
         private void ApiKeyButton_Click(object sender, EventArgs e)
@@ -117,7 +114,6 @@ namespace Bittrex
                 keyEdit.PutString("API", apiKeyEncrypted);
                 keyEdit.Commit();
 
-
             }).SetNegativeButton("Cancel", delegate
             {
                 ad.Dispose();
@@ -126,6 +122,5 @@ namespace Bittrex
             ad.SetView(mView);
             ad.Show();
         }
-
     }
 }

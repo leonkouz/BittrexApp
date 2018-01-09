@@ -81,7 +81,6 @@ namespace Bittrex
             }
 
             return view;
-
         }
     }
 }

@@ -29,8 +29,6 @@ namespace Bittrex
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            //DeleteLocalDataTest();
-
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.Login);
@@ -70,7 +68,6 @@ namespace Bittrex
             //Login button click action
             login.Click += (object sender, EventArgs e) =>
             {
-
                 //Get the text from the boxxes
                 string apiKey = apiKeyBox.Text;
                 string apiKeyEncrypted = Encrypt(apiKey, LoginData.SecretPasswordString);
@@ -110,8 +107,6 @@ namespace Bittrex
                 this.Finish();
             };
         }
-
-
 
         public bool CheckLocalKeysExist()
         {
@@ -164,7 +159,6 @@ namespace Bittrex
             return res.ToString();
         }
 
-
         public void DeleteLocalDataTest()
         {
             var localKeys = Application.Context.GetSharedPreferences("Keys", FileCreationMode.Private);
@@ -173,6 +167,5 @@ namespace Bittrex
             keyEdit.Remove("Secret");
             keyEdit.Commit();
         }
-
     }
 }
